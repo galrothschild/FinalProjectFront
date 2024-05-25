@@ -1,11 +1,18 @@
 import { Navbar, Tabs } from "flowbite-react";
 import NavLink from "../../router/utils/NavLink";
-import { IconUser } from "@tabler/icons-react";
+import { HiHome } from "react-icons/hi";
+import { useNavigate } from "react-router-dom";
 
 const NavbarComponent = () => {
+	const navigate = useNavigate();
 	return (
 		<Tabs aria-label="Default tabs" style="default">
-			<Tabs.Item active title="Profile">
+			<Tabs.Item
+				active
+				title="Home"
+				icon={HiHome}
+				onClick={() => navigate("/")}
+			>
 				This is{" "}
 				<span className="font-medium text-gray-800 dark:text-white">
 					Profile tab's associated content
@@ -14,7 +21,7 @@ const NavbarComponent = () => {
 				next. The tab JavaScript swaps classes to control the content visibility
 				and styling.
 			</Tabs.Item>
-			<Tabs.Item title="Dashboard">
+			<Tabs.Item title="Services" onClick={() => navigate("/services")}>
 				This is{" "}
 				<span className="font-medium text-gray-800 dark:text-white">
 					Dashboard tab's associated content
