@@ -1,17 +1,44 @@
+import { useEffect } from "react";
 import CardComponent from "../components/Card";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../redux/store";
+import { setLoading, setMovies } from "../../redux/movies/moviesSlice";
+import { getFromApi } from "../../api/api.service";
+import { Spinner } from "flowbite-react";
 
 const CardsPage = () => {
-	return (
+	const dispatch = useDispatch<AppDispatch>();
+	const movies = useSelector((state: RootState) => state.movies.movies);
+	const isLoading = useSelector((state: RootState) => state.movies.isLoading);
+	const fetchMovies = async () => {
+		try {
+			dispatch(setLoading(true));
+			const movies = (await getFromApi("/movies")).results;
+			dispatch(setMovies(movies));
+			dispatch(setLoading(false));
+		} catch (error) {
+			dispatch(setLoading(false));
+			console.error(error);
+		}
+	};
+	// biome-ignore lint/correctness/useExhaustiveDependencies: needs to be run once
+	useEffect(() => {
+		document.title = "Cards | MyMovies";
+		fetchMovies();
+	}, []);
+	return !isLoading ? (
 		<div className="flex gap-3 flex-wrap justify-center">
-			{[1, 2, 3, 4, 5].map((val) => (
+			{movies.map((movie) => (
 				<CardComponent
-					key={`${val}-card`}
-					description="A man with a low IQ has accomplished great things in his life and been present during significant historic events—in each case, far exceeding what anyone imagined he could do. But despite all he has achieved, his one true love eludes him."
-					imgSrc="/arw2vcBveWOVZr6pxd9XTd1TdQa.jpg"
-					title="Forrest Gump"
+					key={movie.id}
+					description={movie.overview}
+					imgSrc={movie.poster_path}
+					title={movie.title}
 				/>
 			))}
 		</div>
+	) : (
+		<Spinner />
 	);
 };
 
