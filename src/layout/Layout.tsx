@@ -1,17 +1,14 @@
 import { memo } from "react";
 import Header from "./header/Header";
 import { Flowbite } from "flowbite-react";
+import { Outlet } from "react-router-dom";
 
-type LayoutType = {
-	children?: React.ReactNode;
-};
-
-const Layout = ({ children }: LayoutType) => {
+const Layout: React.FC = () => {
 	return (
 		<Flowbite>
 			<Header />
-			<div className="flex mx-28 my-3 flex-col justify-center items-center">
-			{children}
+			<div className="flex px-28 py-3 flex-col justify-center items-center">
+				<Outlet />
 			</div>
 		</Flowbite>
 	);
