@@ -13,7 +13,7 @@ const CardsPage = () => {
 	const fetchMovies = async () => {
 		try {
 			dispatch(setLoading(true));
-			const movies = (await getFromApi("/movies")).results;
+			const movies = await getFromApi("/movies");
 			dispatch(setMovies(movies));
 			dispatch(setLoading(false));
 		} catch (error) {
@@ -32,6 +32,11 @@ const CardsPage = () => {
 				<CardComponent
 					key={movie.id}
 					description={movie.overview}
+					genres={
+						movie.genres
+							? movie.genres.map((genre) => genre.name).join(", ")
+							: ""
+					}
 					imgSrc={movie.poster_path}
 					title={movie.title}
 				/>
