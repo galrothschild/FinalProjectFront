@@ -1,5 +1,4 @@
 import { useLocation } from "react-router-dom";
-import Layout from "./layout/Layout";
 
 const App = () => {
 	const location = useLocation();

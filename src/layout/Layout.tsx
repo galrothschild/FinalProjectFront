@@ -7,7 +7,7 @@ const Layout: React.FC = () => {
 	return (
 		<Flowbite>
 			<Header />
-			<div className="flex px-28 py-3 flex-col justify-center items-center">
+			<div className="flex px-5 py-3 flex-col justify-center items-center sm:px-28">
 				<Outlet />
 			</div>
 		</Flowbite>
