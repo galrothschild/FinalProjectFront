@@ -6,7 +6,7 @@ const NavbarComponent = () => {
 		<Navbar
 			fluid
 			rounded
-			className="shadow-lg sticky top-0 w-full dark:shadow-sm-light"
+			className="shadow-lg sticky top-0 w-full dark:shadow-sm-light z-10"
 		>
 			<Navbar.Brand href="/">
 				<img
