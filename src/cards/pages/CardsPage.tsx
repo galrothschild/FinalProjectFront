@@ -4,9 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../redux/store";
 import { setLoading, setMovies } from "../../redux/movies/moviesSlice";
 import { getFromApi } from "../../api/api.service";
-import { Pagination, Spinner } from "flowbite-react";
+import { Spinner } from "flowbite-react";
 import { usePages } from "../../components/pagination/usePages";
-import PaginationComponent from "../../components/pagination/PaginationComponent";
 
 const CardsPage = () => {
 	const { currentPage } = usePages();
@@ -33,6 +32,7 @@ const CardsPage = () => {
 		<div className="flex gap-3 flex-wrap justify-center">
 			{movies.map((movie) => (
 				<CardComponent
+					id={movie.id}
 					key={movie.id}
 					description={movie.overview}
 					genres={
