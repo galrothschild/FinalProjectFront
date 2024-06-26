@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../redux/store";
 import { setLoading, setMovies } from "../../redux/movies/moviesSlice";
 import { getFromApi } from "../../api/api.service";
-import { Spinner } from "flowbite-react";
 import { usePages } from "../../components/pagination/usePages";
+import CardPlaceHolder from "../components/CardPlaceHolder";
+
+const CardsGallery = "flex gap-3 flex-wrap justify-center";
 
 const CardsPage = () => {
 	const { currentPage } = usePages();
@@ -29,7 +31,7 @@ const CardsPage = () => {
 		fetchMovies();
 	}, [currentPage]);
 	return !isLoading ? (
-		<div className="flex gap-3 flex-wrap justify-center">
+		<div className={CardsGallery}>
 			{movies.map((movie) => (
 				<CardComponent
 					id={movie.id}
@@ -46,7 +48,11 @@ const CardsPage = () => {
 			))}
 		</div>
 	) : (
-		<Spinner />
+		<div className={CardsGallery}>
+			{[...Array(10)].map((_) => (
+				<CardPlaceHolder key={Math.random()} />
+			))}
+		</div>
 	);
 };
 
