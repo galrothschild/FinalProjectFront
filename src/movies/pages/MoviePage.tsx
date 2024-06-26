@@ -1,7 +1,5 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 import { useMovie } from "../hooks/useMovie";
-import { Avatar, Card } from "flowbite-react";
 
 const MoviePage = () => {
 	const { id } = useParams<{ id: string }>();
