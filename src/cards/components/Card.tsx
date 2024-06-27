@@ -18,7 +18,7 @@ const CardComponent: React.FC<CardPropTypes> = ({
 }) => {
 	return (
 		<Card
-			className="max-w-sm "
+			className="max-w-sm md:basis-1/2"
 			imgSrc={imgSrc}
 			imgAlt={title}
 			horizontal

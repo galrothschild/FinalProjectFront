@@ -7,7 +7,7 @@ import { getFromApi } from "../../api/api.service";
 import { usePages } from "../../components/pagination/usePages";
 import CardPlaceHolder from "../components/CardPlaceHolder";
 
-const CardsGallery = "flex gap-3 flex-wrap justify-center";
+const CardsGallery = "flex gap-3 flex-wrap justify-center md:basis-1/2";
 
 const CardsPage = () => {
 	const { currentPage } = usePages();
