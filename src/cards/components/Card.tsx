@@ -19,7 +19,7 @@ const CardComponent: React.FC<CardPropTypes> = ({
 	return (
 		<Card
 			className="max-w-sm "
-			imgSrc={`https://image.tmdb.org/t/p/w500/${imgSrc}`}
+			imgSrc={imgSrc}
 			imgAlt={title}
 			horizontal
 			href={`/movies/${id}`}
