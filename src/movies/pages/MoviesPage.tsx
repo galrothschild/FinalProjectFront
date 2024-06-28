@@ -12,7 +12,6 @@ const MoviesPage = () => {
 	const currentPage = useSelector((state: RootState) => state.page.page);
 	const dispatch = useDispatch<AppDispatch>();
 	const cards = useSelector((state: RootState) => state.cards.cards);
-	const movies = useSelector((state: RootState) => state.movies.movies);
 	const fetchMovies = async (page: number) => {
 		try {
 			dispatch(setLoading(true));
@@ -32,11 +31,7 @@ const MoviesPage = () => {
 		document.title = `Cards page ${currentPage} | MyMovies`;
 		fetchMovies(currentPage);
 	}, [currentPage]);
-	return (
-		<PaginatedLayout>
-			<CardsPage cards={cards} />
-		</PaginatedLayout>
-	);
+	return <CardsPage cards={cards} pageName="movies" />;
 };
 
 export default MoviesPage;
