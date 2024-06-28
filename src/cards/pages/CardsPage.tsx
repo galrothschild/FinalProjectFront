@@ -1,49 +1,34 @@
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import CardComponent from "../components/Card";
-import { useDispatch, useSelector } from "react-redux";
-import type { AppDispatch, RootState } from "../../redux/store";
-import { setLoading, setMovies } from "../../redux/movies/moviesSlice";
-import { getFromApi } from "../../api/api.service";
-import { usePages } from "../../components/pagination/usePages";
 import CardPlaceHolder from "../components/CardPlaceHolder";
+import type { RootState } from "../../redux/store";
 
 const CardsGallery = "flex gap-3 flex-wrap justify-center md:basis-1/2";
 
-const CardsPage = () => {
-	const { currentPage } = usePages();
-	const dispatch = useDispatch<AppDispatch>();
-	const movies = useSelector((state: RootState) => state.movies.movies);
-	const isLoading = useSelector((state: RootState) => state.movies.isLoading);
-	const fetchMovies = async () => {
-		try {
-			dispatch(setLoading(true));
-			const movies = await getFromApi("/movies", currentPage);
-			dispatch(setMovies(movies));
-			dispatch(setLoading(false));
-		} catch (error) {
-			dispatch(setLoading(false));
-			console.error(error);
-		}
-	};
-	// biome-ignore lint/correctness/useExhaustiveDependencies: needs to be run once
-	useEffect(() => {
-		document.title = `Cards page ${currentPage} | MyMovies`;
-		fetchMovies();
-	}, [currentPage]);
+export type CardData = {
+	id: number;
+	description: string;
+	genres: string;
+	imgSrc: string;
+	title: string;
+};
+
+type CardsPageProps = {
+	cards: CardData[];
+};
+
+const CardsPage: React.FC<CardsPageProps> = ({ cards }) => {
+	const isLoading = useSelector((state: RootState) => state.cards.isLoading);
 	return !isLoading ? (
 		<div className={CardsGallery}>
-			{movies.map((movie) => (
+			{cards.map((card) => (
 				<CardComponent
-					id={movie.id}
-					key={movie.id}
-					description={movie.overview}
-					genres={
-						movie.genres
-							? movie.genres.map((genre) => genre.name).join(", ")
-							: ""
-					}
-					imgSrc={movie.poster_path}
-					title={movie.title}
+					id={card.id}
+					key={card.id}
+					description={card.description}
+					genres={card.genres}
+					imgSrc={card.imgSrc}
+					title={card.title}
 				/>
 			))}
 		</div>
