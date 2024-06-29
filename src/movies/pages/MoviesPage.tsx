@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import CardsPage from "../../cards/pages/CardsPage";
-import PaginatedLayout from "../../layout/special/PaginatedLayout";
 import type { AppDispatch, RootState } from "../../redux/store";
 import { setMovies } from "../../redux/movies/moviesSlice";
 import { getFromApi } from "../../api/api.service";
@@ -12,10 +11,10 @@ const MoviesPage = () => {
 	const currentPage = useSelector((state: RootState) => state.page.page);
 	const dispatch = useDispatch<AppDispatch>();
 	const cards = useSelector((state: RootState) => state.cards.cards);
-	const fetchMovies = async (page: number) => {
+	const fetchMovies = async (page: number, search?: string) => {
 		try {
 			dispatch(setLoading(true));
-			const movies = await getFromApi("/movies", page);
+			const movies = await getFromApi("/movies", page, search);
 			dispatch(setMovies(movies));
 			const cards = normalizeMovies(movies);
 			dispatch(setCards(cards));
@@ -25,13 +24,16 @@ const MoviesPage = () => {
 			console.error(error);
 		}
 	};
+	const searchMovies = async (search: string) => {
+		await fetchMovies(currentPage, search);
+	};
 	// biome-ignore lint/correctness/useExhaustiveDependencies: fetchMovies changes on each render.
 	useEffect(() => {
 		dispatch(setCards([]));
-		document.title = `Cards page ${currentPage} | MyMovies`;
+		document.title = `Movies page ${currentPage} | MyMovies`;
 		fetchMovies(currentPage);
 	}, [currentPage]);
-	return <CardsPage cards={cards} pageName="movies" />;
+	return <CardsPage cards={cards} pageName="movies" onSearch={searchMovies} />;
 };
 
 export default MoviesPage;

@@ -19,13 +19,14 @@ export type CardData = {
 type CardsPageProps = {
 	cards: CardData[];
 	pageName: string;
+	onSearch: (search: string) => void;
 };
 
-const CardsPage: React.FC<CardsPageProps> = ({ cards, pageName }) => {
+const CardsPage: React.FC<CardsPageProps> = ({ cards, pageName, onSearch }) => {
 	const isLoading = useSelector((state: RootState) => state.cards.isLoading);
 	return (
 		<PaginatedLayout>
-			<SearchBar pageName={pageName} />
+			<SearchBar onSearch={onSearch} pageName={pageName} />
 			{!isLoading ? (
 				<div className={CardsGallery}>
 					{cards.map((card) => (
