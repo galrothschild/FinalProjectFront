@@ -10,6 +10,7 @@ import { setCards, setLoading } from "../../redux/cards/cardsSlice";
 const MoviesPage = () => {
 	const currentPage = useSelector((state: RootState) => state.page.page);
 	const dispatch = useDispatch<AppDispatch>();
+	const search = useSelector((state: RootState) => state.search.searchTerm);
 	const cards = useSelector((state: RootState) => state.cards.cards);
 	const fetchMovies = async (page: number, search?: string) => {
 		try {
@@ -31,7 +32,7 @@ const MoviesPage = () => {
 	useEffect(() => {
 		dispatch(setCards([]));
 		document.title = `Movies page ${currentPage} | MyMovies`;
-		fetchMovies(currentPage);
+		fetchMovies(currentPage, search);
 	}, [currentPage]);
 	return <CardsPage cards={cards} pageName="movies" onSearch={searchMovies} />;
 };

@@ -11,7 +11,7 @@ export const getFromApi = async (
 	page?: number,
 	query?: string,
 ) => {
-	const params = query ? { query: query } : { page: page };
+	const params = query ? { query: query, page: page } : { page: page };
 	const response = await instance.get(BASE_URL + url, {
 		params: params,
 	});

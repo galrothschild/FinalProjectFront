@@ -3,7 +3,6 @@ import CardComponent from "../components/Card";
 import CardPlaceHolder from "../components/CardPlaceHolder";
 import type { RootState } from "../../redux/store";
 import PaginatedLayout from "../../layout/special/PaginatedLayout";
-import { Flowbite } from "flowbite-react";
 import SearchBar from "../../layout/special/SearchBar";
 
 const CardsGallery = "flex gap-3 flex-wrap justify-center md:basis-1/2";
