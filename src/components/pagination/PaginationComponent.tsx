@@ -6,13 +6,13 @@ import { setPage } from "../../redux/pages/pageSlice";
 const PaginationComponent = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const currentPage = useSelector((state: RootState) => state.page.page);
-
+	const totalPages = useSelector((state: RootState) => state.page.total_pages);
 	const onPageChange = (page: number) => dispatch(setPage(page));
 	return (
 		<div className="flex overflow-x-auto sm:justify-center">
 			<Pagination
 				currentPage={currentPage}
-				totalPages={100}
+				totalPages={totalPages}
 				onPageChange={onPageChange}
 				showIcons
 			/>

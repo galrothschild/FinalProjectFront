@@ -6,6 +6,7 @@ import { getFromApi } from "../../api/api.service";
 import { useEffect } from "react";
 import { normalizeMovies } from "../utils/normalizeMovies";
 import { setCards, setLoading } from "../../redux/cards/cardsSlice";
+import { setTotalPages } from "../../redux/pages/pageSlice";
 
 const MoviesPage = () => {
 	const currentPage = useSelector((state: RootState) => state.page.page);
@@ -15,7 +16,12 @@ const MoviesPage = () => {
 	const fetchMovies = async (page: number, search?: string) => {
 		try {
 			dispatch(setLoading(true));
-			const movies = await getFromApi("/movies", page, search);
+			const { results: movies, total_pages } = await getFromApi(
+				"/movies",
+				page,
+				search,
+			);
+			dispatch(setTotalPages(total_pages));
 			dispatch(setMovies(movies));
 			const cards = normalizeMovies(movies);
 			dispatch(setCards(cards));

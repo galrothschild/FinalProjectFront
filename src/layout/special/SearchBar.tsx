@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "../../redux/store";
 import { setSearch } from "../../redux/search/searchSlice";
+import { setPage } from "../../redux/pages/pageSlice";
 
 const SearchBar = ({
 	pageName,
@@ -49,6 +50,7 @@ const SearchBar = ({
 				<button
 					onClick={(e) => {
 						e.preventDefault();
+						dispatch(setPage(1));
 						return onSearch(search);
 					}}
 					type="submit"
