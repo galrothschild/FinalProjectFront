@@ -1,18 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { getFromApi } from "../../api/api.service";
-import type { IMovie } from "../models/IMovie.model";
+import type { ITVShow } from "../models/ITVShow.model";
 
-export const useMovie = (id: number) => {
-	const [movie, setMovie] = useState<IMovie>();
+export const useTVShow = (id: number) => {
+	const [show, setShow] = useState<ITVShow>();
 	const [loading, setLoading] = useState(true);
 	const fetchMovie = async (id: number) => {
-		const response = await getFromApi(`/movies/${id}`);
-		setMovie(response);
+		const response = await getFromApi(`/tv/${id}`);
+		setShow(response);
 		setLoading(false);
 	};
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		fetchMovie(id);
 	}, [id]);
-	return { movie, loading };
+	return { show, loading };
 };

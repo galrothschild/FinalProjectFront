@@ -1,6 +1,7 @@
 import App from "../App";
 import MoviePage from "../movies/pages/MoviePage";
 import MoviesPage from "../movies/pages/MoviesPage";
+import TVShowPage from "../tv/pages/TVShowPage";
 import TVShowsPage from "../tv/pages/TVShowsPage";
 type route = {
 	path: string;
@@ -25,8 +26,8 @@ export const ROUTES: route[] = [
 		element: <TVShowsPage />,
 	},
 	{
-		path: "/movies/:id",
-		element: <MoviePage />,
+		path: "/tv/:id",
+		element: <TVShowPage />,
 	},
 	{
 		path: "/about",

@@ -21,8 +21,8 @@ const NavbarComponent = () => {
 			</div>
 			<Navbar.Collapse>
 				<NavLink to="/" label="Home" />
-				<NavLink to="/about" label="About" />
-				<NavLink to="/services" label="Services" />
+				<NavLink to="/tv" label="TV Shows" />
+				<NavLink to="/movies" label="Movies" />
 				<NavLink to="/contact" label="Contact" />
 				<NavLink to="/pricing" label="Pricing" />
 			</Navbar.Collapse>
