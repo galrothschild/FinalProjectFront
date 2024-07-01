@@ -1,4 +1,4 @@
-import { Card } from "flowbite-react";
+import { Button, Card } from "flowbite-react";
 
 type CardPropTypes = {
 	imgSrc: string;
@@ -18,7 +18,7 @@ const CardComponent: React.FC<CardPropTypes> = ({
 }) => {
 	return (
 		<Card
-			className="max-w-sm md:basis-1/2"
+			className="max-w-sm xl:basis-1/2"
 			imgSrc={imgSrc}
 			imgAlt={title}
 			horizontal
@@ -29,11 +29,21 @@ const CardComponent: React.FC<CardPropTypes> = ({
 			</h5>
 			<p className="text-sm text-gray-500 dark:text-gray-400">{genres}</p>
 			<p
-				className="font-normal text-gray-700 dark:text-gray-400  mb-auto text-ellipsis overflow-y-hidden whitespace-wrap line-clamp-5"
+				className="font-normal text-gray-700 dark:text-gray-400  mb-auto text-ellipsis overflow-y-hidden whitespace-wrap line-clamp-4"
 				title={description}
 			>
 				{description}
 			</p>
+			<div className="flex gap-2 flex-col sm:flex-row">
+				<Button className="hover:brightness-95" href={`/movies/${id}`}>
+					{" "}
+					Add to Watchlist
+				</Button>
+				<Button className="hover:brightness-95" href={`/movies/${id}`}>
+					{" "}
+					Mark as Watched
+				</Button>
+			</div>
 		</Card>
 	);
 };
