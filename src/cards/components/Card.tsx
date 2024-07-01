@@ -6,6 +6,7 @@ type CardPropTypes = {
 	description: string;
 	genres: string;
 	id: number;
+	url: string;
 };
 
 // TODO: Make text overflow ellipsis normally
@@ -15,6 +16,7 @@ const CardComponent: React.FC<CardPropTypes> = ({
 	description,
 	genres,
 	id,
+	url,
 }) => {
 	return (
 		<Card
@@ -22,7 +24,7 @@ const CardComponent: React.FC<CardPropTypes> = ({
 			imgSrc={imgSrc}
 			imgAlt={title}
 			horizontal
-			href={`/movies/${id}`}
+			href={`/${url}/${id}`}
 		>
 			<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 				{title}

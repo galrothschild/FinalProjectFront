@@ -36,6 +36,7 @@ const CardsPage: React.FC<CardsPageProps> = ({ cards, pageName, onSearch }) => {
 							genres={card.genres}
 							imgSrc={card.imgSrc}
 							title={card.title}
+							url={pageName}
 						/>
 					))}
 				</div>
