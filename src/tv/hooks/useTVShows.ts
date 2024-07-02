@@ -13,10 +13,11 @@ export const useTVShows = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const search = useSelector((state: RootState) => state.search.searchTerm);
 	const cards = useSelector((state: RootState) => state.cards.cards);
+
+	// const showsGenres = getFromApi("/tv/genres");
 	const fetchShows = async (page: number, search?: string) => {
 		try {
 			dispatch(setLoading(true));
-			dispatch(setSearch(""));
 			const { results: shows, total_pages } = await getFromApi(
 				"/tv",
 				page,

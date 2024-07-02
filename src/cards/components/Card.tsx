@@ -24,7 +24,7 @@ const CardComponent: React.FC<CardPropTypes> = ({
 			imgSrc={imgSrc}
 			imgAlt={title}
 			horizontal
-			href={`/${url}/${id}`}
+			// href={`/${url}/${id}`}
 		>
 			<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 				{title}

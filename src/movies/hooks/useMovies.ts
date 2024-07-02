@@ -16,7 +16,6 @@ export const useMovies = () => {
 	const fetchMovies = async (page: number, search?: string) => {
 		try {
 			dispatch(setLoading(true));
-			dispatch(setSearch(""));
 			const { results: movies, total_pages } = await getFromApi(
 				"/movies",
 				page,
