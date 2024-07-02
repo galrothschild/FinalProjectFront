@@ -6,6 +6,7 @@ import { setTotalPages } from "../../redux/pages/pageSlice";
 import type { AppDispatch, RootState } from "../../redux/store";
 import { setShows } from "../../redux/tvshows/showSlice";
 import { normalizeTVShows } from "../utils/normalizeShow";
+import { setSearch } from "../../redux/search/searchSlice";
 
 export const useTVShows = () => {
 	const currentPage = useSelector((state: RootState) => state.page.page);
@@ -15,6 +16,7 @@ export const useTVShows = () => {
 	const fetchShows = async (page: number, search?: string) => {
 		try {
 			dispatch(setLoading(true));
+			dispatch(setSearch(""));
 			const { results: shows, total_pages } = await getFromApi(
 				"/tv",
 				page,

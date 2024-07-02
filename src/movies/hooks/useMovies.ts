@@ -6,6 +6,7 @@ import { setMovies } from "../../redux/movies/moviesSlice";
 import { setTotalPages } from "../../redux/pages/pageSlice";
 import type { AppDispatch, RootState } from "../../redux/store";
 import { normalizeMovies } from "../utils/normalizeMovies";
+import { setSearch } from "../../redux/search/searchSlice";
 
 export const useMovies = () => {
 	const currentPage = useSelector((state: RootState) => state.page.page);
@@ -15,6 +16,7 @@ export const useMovies = () => {
 	const fetchMovies = async (page: number, search?: string) => {
 		try {
 			dispatch(setLoading(true));
+			dispatch(setSearch(""));
 			const { results: movies, total_pages } = await getFromApi(
 				"/movies",
 				page,
