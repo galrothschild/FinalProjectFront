@@ -3,6 +3,7 @@ import MoviePage from "../movies/pages/MoviePage";
 import MoviesPage from "../movies/pages/MoviesPage";
 import TVShowPage from "../tv/pages/TVShowPage";
 import TVShowsPage from "../tv/pages/TVShowsPage";
+import LoginPage from "../users/pages/LoginPage";
 type route = {
 	path: string;
 	element: JSX.Element;
@@ -12,6 +13,10 @@ export const ROUTES: route[] = [
 	{
 		path: "/",
 		element: <MoviesPage />,
+	},
+	{
+		path: "/login",
+		element: <LoginPage />,
 	},
 	{
 		path: "/movies",

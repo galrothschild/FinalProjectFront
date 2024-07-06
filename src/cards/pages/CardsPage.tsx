@@ -21,9 +21,13 @@ export type CardData = {
 
 type CardsPageProps = {
 	cards: CardData[];
-	pageName: string;
+	pageName: "movies" | "tv";
 	onSearch: (search: string) => void;
-	genres: Genre[];
+	genres: {
+		options: Genre[];
+		selected: number[];
+		setSelected: (IDs: number[]) => void;
+	};
 	onFilter: (IDs: number[]) => void;
 };
 
@@ -42,9 +46,14 @@ const CardsPage: React.FC<CardsPageProps> = ({
 	}, []);
 	return (
 		<PaginatedLayout>
-			<div className="flex items-center justify-center gap-5">
+			<div className="flex items-center justify-center gap-5 flex-col md:flex-row">
 				<SearchBar onSearch={onSearch} pageName={pageName} />
-				<Filter genres={genres} onFilter={onFilter} />
+				<Filter
+					genres={genres.options}
+					onFilter={onFilter}
+					selectedOptions={genres.selected}
+					setSelectedOptions={genres.setSelected}
+				/>
 			</div>
 			{!isLoading ? (
 				<div className={CardsGallery}>

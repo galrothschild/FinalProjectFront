@@ -17,3 +17,13 @@ export const getFromApi = async (
 	});
 	return response.data;
 };
+
+export const getFromAPIFiltered = async (
+	IDs: number[],
+	api: "movies" | "shows",
+) => {
+	const response = await instance.get(
+		`${BASE_URL}/${api}/filter?genres=${IDs.join(",")}`,
+	);
+	return response.data;
+};

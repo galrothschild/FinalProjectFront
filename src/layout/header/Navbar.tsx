@@ -1,13 +1,9 @@
-import { Navbar, DarkThemeToggle } from "flowbite-react";
+import { Navbar, DarkThemeToggle, Button } from "flowbite-react";
 import NavLink from "../../router/utils/NavLink";
-
+import style from "./navbar.module.css";
 const NavbarComponent = () => {
 	return (
-		<Navbar
-			fluid
-			rounded
-			className="shadow-lg sticky top-0 w-full dark:shadow-sm-light z-10"
-		>
+		<Navbar fluid rounded className={style.nav}>
 			<Navbar.Brand href="/">
 				<img
 					src="/logo.png"
@@ -17,6 +13,7 @@ const NavbarComponent = () => {
 			</Navbar.Brand>
 			<div className="flex md:order-2">
 				<DarkThemeToggle />
+				<Button className="ml-2">Sign In</Button>
 				<Navbar.Toggle />
 			</div>
 			<Navbar.Collapse>

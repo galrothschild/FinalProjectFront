@@ -4,11 +4,13 @@ import type { IMovie } from "../../movies/models/IMovie.model";
 type movieState = {
 	movies: IMovie[];
 	isLoading: boolean;
+	genres: number[];
 };
 
 export const initialState: movieState = {
 	movies: [],
 	isLoading: false,
+	genres: [],
 };
 
 const moviesSlice = createSlice({
@@ -21,8 +23,11 @@ const moviesSlice = createSlice({
 		setLoading: (state, action: PayloadAction<boolean>) => {
 			state.isLoading = action.payload;
 		},
+		setGenres: (state, action: PayloadAction<number[]>) => {
+			state.genres = action.payload;
+		},
 	},
 });
 
-export const { setMovies, setLoading } = moviesSlice.actions;
+export const { setMovies, setLoading, setGenres } = moviesSlice.actions;
 export default moviesSlice.reducer;
