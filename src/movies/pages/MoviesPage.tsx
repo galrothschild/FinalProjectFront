@@ -1,18 +1,17 @@
-import { getFromAPIFiltered } from "../../api/api.service";
+import { useCards } from "../../cards/hooks/useCards";
 import CardsPage from "../../cards/pages/CardsPage";
-import { useMovies } from "../hooks/useMovies";
 
 const MoviesPage = () => {
-	const { cards, searchMovies, filterMovies, genres } = useMovies();
+	const { cards, searchAPI, filterAPI, genres } = useCards("movies");
 
 	return (
 		<CardsPage
 			cards={cards}
 			pageName="movies"
-			onSearch={searchMovies}
+			onSearch={searchAPI}
 			genres={genres}
 			onFilter={() => {
-				filterMovies();
+				filterAPI();
 			}}
 		/>
 	);

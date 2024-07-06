@@ -3,7 +3,7 @@ import moviesReducer from "./movies/moviesSlice";
 import pageReducer from "./pages/pageSlice";
 import cardsReducer from "./cards/cardsSlice";
 import searchReducer from "./search/searchSlice";
-import showReducer from "./tvshows/showSlice";
+import showReducer from "./tv/tvSlice";
 
 export const store = configureStore({
 	reducer: {
@@ -11,7 +11,7 @@ export const store = configureStore({
 		page: pageReducer,
 		cards: cardsReducer,
 		search: searchReducer,
-		shows: showReducer,
+		tv: showReducer,
 	},
 });
 

@@ -7,7 +7,7 @@ instance.interceptors.response.use(undefined, (error) => {
 });
 
 export const getFromApi = async (
-	url: string,
+	url: `/movies/${string}` | `/tv/${string}`,
 	page?: number,
 	query?: string,
 ) => {
@@ -20,10 +20,15 @@ export const getFromApi = async (
 
 export const getFromAPIFiltered = async (
 	IDs: number[],
-	api: "movies" | "shows",
+	api: "movies" | "tv",
 ) => {
 	const response = await instance.get(
 		`${BASE_URL}/${api}/filter?genres=${IDs.join(",")}`,
 	);
+	return response.data;
+};
+
+export const getAvailableGenres = async (api: "movies" | "tv") => {
+	const response = await instance.get(`${BASE_URL}/${api}/genres`);
 	return response.data;
 };

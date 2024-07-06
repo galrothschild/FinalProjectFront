@@ -4,7 +4,7 @@ import { getFromApi } from "../../api/api.service";
 import { setCards, setLoading } from "../../redux/cards/cardsSlice";
 import { setTotalPages } from "../../redux/pages/pageSlice";
 import type { AppDispatch, RootState } from "../../redux/store";
-import { setShows } from "../../redux/tvshows/showSlice";
+import { setShows } from "../../redux/tv/tvSlice";
 import { normalizeTVShows } from "../utils/normalizeShow";
 import { setSearch } from "../../redux/search/searchSlice";
 
@@ -35,6 +35,25 @@ export const useTVShows = () => {
 	};
 	const searchShows = async (search: string) => {
 		await fetchShows(currentPage, search);
+	};
+	const filterShows = async () => {
+		try {
+			dispatch(setLoading(true));
+			dispatch(setSearch(""));
+			const { results: shows, total_pages } = await getFromApi(
+				"/tv",
+				currentPage,
+				search,
+			);
+			dispatch(setTotalPages(total_pages));
+			dispatch(setShows(shows));
+			const cards = normalizeTVShows(shows);
+			dispatch(setCards(cards));
+			dispatch(setLoading(false));
+		} catch (error) {
+			dispatch(setLoading(false));
+			console.error(error);
+		}
 	};
 	// biome-ignore lint/correctness/useExhaustiveDependencies: fetchMovies changes on each render.
 	useEffect(() => {

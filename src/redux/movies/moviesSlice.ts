@@ -1,16 +1,18 @@
 import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
-import type { IMovie } from "../../movies/models/IMovie.model";
+import type { Genre, IMovie } from "../../movies/models/IMovie.model";
 
 type movieState = {
 	movies: IMovie[];
 	isLoading: boolean;
 	genres: number[];
+	availableGenres: Genre[];
 };
 
 export const initialState: movieState = {
 	movies: [],
 	isLoading: false,
 	genres: [],
+	availableGenres: [],
 };
 
 const moviesSlice = createSlice({
@@ -23,11 +25,19 @@ const moviesSlice = createSlice({
 		setLoading: (state, action: PayloadAction<boolean>) => {
 			state.isLoading = action.payload;
 		},
-		setGenres: (state, action: PayloadAction<number[]>) => {
+		setMovieGenres: (state, action: PayloadAction<number[]>) => {
 			state.genres = action.payload;
+		},
+		setAvailableMovieGenres: (state, action: PayloadAction<Genre[]>) => {
+			state.availableGenres = action.payload;
 		},
 	},
 });
 
-export const { setMovies, setLoading, setGenres } = moviesSlice.actions;
+export const {
+	setMovies,
+	setLoading,
+	setMovieGenres,
+	setAvailableMovieGenres,
+} = moviesSlice.actions;
 export default moviesSlice.reducer;

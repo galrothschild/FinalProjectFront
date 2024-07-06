@@ -28,7 +28,7 @@ type CardsPageProps = {
 		selected: number[];
 		setSelected: (IDs: number[]) => void;
 	};
-	onFilter: (IDs: number[]) => void;
+	onFilter: () => void;
 };
 
 const CardsPage: React.FC<CardsPageProps> = ({

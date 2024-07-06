@@ -1,10 +1,10 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import type { Genre } from "../../movies/models/IMovie.model";
-import { Button, Checkbox, Dropdown } from "flowbite-react";
+import { Checkbox, Dropdown } from "flowbite-react";
 
 type FilterProps = {
 	genres: Genre[];
-	onFilter: (IDs: number[]) => void;
+	onFilter: () => void;
 	selectedOptions: number[];
 	setSelectedOptions: (IDs: number[]) => void;
 };
@@ -28,9 +28,7 @@ const Filter = ({
 			dismissOnClick={false}
 			className="h-52 overflow-auto scroll"
 		>
-			<Dropdown.Item onClick={onFilter} className="sticky top-0">
-				<Button>Apply Filter</Button>
-			</Dropdown.Item>
+			<Dropdown.Item onClick={onFilter}>Apply Filter</Dropdown.Item>
 			<Dropdown.Divider />
 			{genres.map((genre) => (
 				<Dropdown.Item key={genre.id} onClick={() => handleSelect(genre)}>
@@ -45,9 +43,7 @@ const Filter = ({
 				</Dropdown.Item>
 			))}
 			<Dropdown.Divider />
-			<Dropdown.Item>
-				<Button onClick={() => onFilter(selectedOptions)}>Apply Filter</Button>
-			</Dropdown.Item>
+			<Dropdown.Item onClick={onFilter}>Apply Filter</Dropdown.Item>
 		</Dropdown>
 	);
 };
