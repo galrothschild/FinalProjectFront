@@ -43,6 +43,7 @@ export const useCards = (cardsType: "movies" | "tv") => {
 	const fetchAPI = async (page: number, search?: string) => {
 		try {
 			dispatch(setLoading(true));
+			dispatch(setGenres([]));
 			const { results: movies, total_pages } = await getFromApi(
 				`/${cardsType}/`,
 				page,
