@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
 	getAvailableGenres,
-	getFromApi,
 	getFromAPIFiltered,
+	getFromApi,
 } from "../../api/api.service";
+import { normalizeMovies } from "../../movies/utils/normalizeMovies";
 import { setCards, setLoading } from "../../redux/cards/cardsSlice";
 import {
 	setAvailableMovieGenres,
@@ -12,15 +13,15 @@ import {
 	setMovies,
 } from "../../redux/movies/moviesSlice";
 import { setTotalPages } from "../../redux/pages/pageSlice";
-import type { AppDispatch, RootState } from "../../redux/store";
-import { normalizeMovies } from "../../movies/utils/normalizeMovies";
 import { setSearch } from "../../redux/search/searchSlice";
+import type { AppDispatch, RootState } from "../../redux/store";
 import {
 	setAvailableShowGenres,
 	setShowGenres,
 	setShows,
 } from "../../redux/tv/tvSlice";
 import { normalizeTVShows } from "../../tv/utils/normalizeShow";
+import { Genre } from "../../movies/models/IMovie.model";
 
 export const useCards = (cardsType: "movies" | "tv") => {
 	const currentPage = useSelector((state: RootState) => state.page.page);
@@ -61,11 +62,15 @@ export const useCards = (cardsType: "movies" | "tv") => {
 		dispatch(setMovieGenres([]));
 		await fetchAPI(currentPage, search);
 	};
-	const filterAPI = async () => {
+	const filterAPI = async (currentPage: number) => {
 		try {
 			dispatch(setLoading(true));
 			dispatch(setSearch(""));
-			const { results, total_pages } = await getFromAPIFiltered(IDs, cardsType);
+			const { results, total_pages } = await getFromAPIFiltered(
+				IDs,
+				cardsType,
+				currentPage,
+			);
 			dispatch(setTotalPages(total_pages));
 			dispatch(setState(results));
 			const cards = normalize(results);
@@ -76,18 +81,23 @@ export const useCards = (cardsType: "movies" | "tv") => {
 			console.error(error);
 		}
 	};
-	const getGenres = async () => {
-		if (availableGenres.length) {
-			const genres = await getAvailableGenres(cardsType);
-			dispatch(setAvailableGenres(genres));
+	const getGenres = () => {
+		if (!availableGenres.length) {
+			getAvailableGenres(cardsType).then((genres) => {
+				dispatch(setAvailableGenres(genres));
+			});
 		}
 		return availableGenres;
 	};
+	getGenres();
 	// biome-ignore lint/correctness/useExhaustiveDependencies: fetchMovies changes on each render.
 	useEffect(() => {
-		getGenres();
 		dispatch(setCards([]));
 		document.title = `${cardsType} page ${currentPage} | MyMovies`;
+		if (IDs.length) {
+			filterAPI(currentPage);
+			return;
+		}
 		fetchAPI(currentPage, search);
 	}, [currentPage]);
 

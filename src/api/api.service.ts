@@ -21,9 +21,10 @@ export const getFromApi = async (
 export const getFromAPIFiltered = async (
 	IDs: number[],
 	api: "movies" | "tv",
+	page: number,
 ) => {
 	const response = await instance.get(
-		`${BASE_URL}/${api}/filter?genres=${IDs.join(",")}`,
+		`${BASE_URL}/${api}/filter?genres=${IDs.join(",")}&page=${page}`,
 	);
 	return response.data;
 };
