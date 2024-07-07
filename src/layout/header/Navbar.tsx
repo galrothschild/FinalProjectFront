@@ -13,7 +13,9 @@ const NavbarComponent = () => {
 			</Navbar.Brand>
 			<div className="flex md:order-2">
 				<DarkThemeToggle />
-				<Button className="ml-2">Sign In</Button>
+				<Button className="ml-2" href="/login">
+					Sign In
+				</Button>
 				<Navbar.Toggle />
 			</div>
 			<Navbar.Collapse>

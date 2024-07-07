@@ -21,7 +21,6 @@ import {
 	setShows,
 } from "../../redux/tv/tvSlice";
 import { normalizeTVShows } from "../../tv/utils/normalizeShow";
-import { Genre } from "../../movies/models/IMovie.model";
 
 export const useCards = (cardsType: "movies" | "tv") => {
 	const currentPage = useSelector((state: RootState) => state.page.page);
