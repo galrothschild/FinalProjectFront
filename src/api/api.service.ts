@@ -33,3 +33,11 @@ export const getAvailableGenres = async (api: "movies" | "tv") => {
 	const response = await instance.get(`${BASE_URL}/${api}/genres`);
 	return response.data;
 };
+
+export const postToApi = async (
+	api: "movies" | "tv" | "users",
+	data: unknown,
+) => {
+	const response = await instance.post(`${BASE_URL}/${api}`, data);
+	return response.data;
+};
