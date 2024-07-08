@@ -1,3 +1,4 @@
+import { getFromApi } from "./api.service";
 import axios from "axios";
 
 const instance = axios.create();
@@ -35,9 +36,17 @@ export const getAvailableGenres = async (api: "movies" | "tv") => {
 };
 
 export const postToApi = async (
-	api: "movies" | "tv" | "users",
+	api: "movies" | "tv" | "users" | "users/login",
 	data: unknown,
 ) => {
 	const response = await instance.post(`${BASE_URL}/${api}`, data);
+	return response.data;
+};
+
+export const getFromApiById = async (
+	url: "users" | "movies" | "tv",
+	id: string,
+) => {
+	const response = await instance.get(`${BASE_URL}/${url}/${id}`);
 	return response.data;
 };

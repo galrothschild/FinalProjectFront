@@ -1,7 +1,10 @@
 import { Navbar, DarkThemeToggle, Button } from "flowbite-react";
 import NavLink from "../../router/utils/NavLink";
 import style from "./navbar.module.css";
+import { useSelector } from "react-redux";
+import type { RootState } from "../../redux/store";
 const NavbarComponent = () => {
+	const isLogged = useSelector((state: RootState) => state.user.isLogged);
 	return (
 		<Navbar fluid rounded className={style.nav}>
 			<Navbar.Brand href="/">
@@ -13,10 +16,14 @@ const NavbarComponent = () => {
 			</Navbar.Brand>
 			<div className="flex md:order-2">
 				<DarkThemeToggle />
-				<Button className="ml-2" href="/login">
-					Sign In
-				</Button>
-				<Navbar.Toggle />
+				{!isLogged && (
+					<>
+						<Button className="ml-2" href="/login">
+							Sign In
+						</Button>
+						<Navbar.Toggle />
+					</>
+				)}
 			</div>
 			<Navbar.Collapse>
 				<NavLink to="/" label="Home" />

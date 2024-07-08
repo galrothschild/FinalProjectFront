@@ -4,6 +4,7 @@ import pageReducer from "./pages/pageSlice";
 import cardsReducer from "./cards/cardsSlice";
 import searchReducer from "./search/searchSlice";
 import showReducer from "./tv/tvSlice";
+import userReducer from "./user/userSlice";
 
 export const store = configureStore({
 	reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
 		cards: cardsReducer,
 		search: searchReducer,
 		tv: showReducer,
+		user: userReducer,
 	},
 });
 
