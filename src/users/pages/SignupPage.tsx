@@ -6,9 +6,9 @@ interface SignupFormInputs extends FieldValues {
 	email: string;
 	password: string;
 	image: string;
-	firstName: string;
-	lastName: string;
-	middleName: string;
+	"first name": string;
+	"last name": string;
+	"middle name": string;
 	age: number;
 }
 
@@ -18,14 +18,22 @@ const SignupPage: React.FC = () => {
 		"email",
 		"password",
 		"image",
-		"firstName",
-		"lastName",
-		"middleName",
+		"first name",
+		"middle name",
+		"last name",
 		"age",
 	];
 	const submit = {
 		name: "Sign up",
-		action: (data: SignupFormInputs) => console.log(data),
+		action: (data: SignupFormInputs) => {
+			const user = {
+				name: {
+					first: data["first name"],
+					middle: data["middle name"],
+					last: data["last name"],
+				},
+			};
+		},
 	};
 	const showResetAndCancel = false;
 	const callToAction = {
