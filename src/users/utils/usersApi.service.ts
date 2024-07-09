@@ -20,7 +20,12 @@ const decodeToken = (token: string) => {
 	return JSON.parse(jsonPayload);
 };
 
-const getUser = async (id: string) => {
+export const getUser = async (id: string) => {
 	const response = await getFromApiById("users", id);
 	return response;
+};
+
+export const register = async (data: IUser) => {
+	const user = await postToApi("users", data);
+	return user;
 };

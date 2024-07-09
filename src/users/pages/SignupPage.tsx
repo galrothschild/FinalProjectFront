@@ -1,5 +1,6 @@
 import Form from "../../forms/components/Form";
 import type { FieldValues } from "react-hook-form";
+import { register } from "../utils/usersApi.service";
 
 interface SignupFormInputs extends FieldValues {
 	username: string;
@@ -26,13 +27,22 @@ const SignupPage: React.FC = () => {
 	const submit = {
 		name: "Sign up",
 		action: (data: SignupFormInputs) => {
+			const {
+				"first name": firstName,
+				"middle name": middleName,
+				"last name": lastName,
+				...rest
+			} = data;
+
 			const user = {
 				name: {
-					first: data["first name"],
-					middle: data["middle name"],
-					last: data["last name"],
+					first: firstName,
+					middle: middleName,
+					last: lastName,
 				},
+				...rest,
 			};
+			register(user).then((response) => console.log(response));
 		},
 	};
 	const showResetAndCancel = false;

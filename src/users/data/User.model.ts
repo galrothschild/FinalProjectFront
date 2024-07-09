@@ -2,11 +2,14 @@ export type IUser = {
 	username: string;
 	email: string;
 	image: string;
-	firstName: string;
-	lastName: string;
-	middleName: string;
+	name: {
+		first: string;
+		middle: string;
+		last: string;
+	};
 	age: number;
-	_id: string;
+	_id?: string;
+	password?: string;
 };
 
 export type TokenPayload = {
