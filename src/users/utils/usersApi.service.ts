@@ -29,3 +29,14 @@ export const register = async (data: IUser) => {
 	const user = await postToApi("users", data);
 	return user;
 };
+
+export const getNewAccessToken = async () => {
+	try {
+		const response = await postToApi("users/refresh-token", {});
+		const { accessToken } = response.data;
+		localStorage.set("authToken", accessToken);
+		return accessToken;
+	} catch (error) {
+		console.error("Error refreshing token", error);
+	}
+};

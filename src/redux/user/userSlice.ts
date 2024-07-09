@@ -12,9 +12,11 @@ const initialState: userSliceState = {
 		username: "",
 		email: "",
 		image: "",
-		firstName: "",
-		lastName: "",
-		middleName: "",
+		name: {
+			first: "",
+			middle: "",
+			last: "",
+		},
 		age: 0,
 		_id: "",
 	},
@@ -30,8 +32,16 @@ const userSlice = createSlice({
 			state.user = action.payload;
 			state.isLogged = true;
 		},
+		setToken: (state, action) => {
+			state.token = action.payload;
+		},
+		logout: (state) => {
+			state.user = initialState.user;
+			state.isLogged = false;
+			state.token = "";
+		},
 	},
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, setToken, logout } = userSlice.actions;
 export default userSlice.reducer;

@@ -1,9 +1,23 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import Header from "./header/Header";
 import { Flowbite } from "flowbite-react";
 import { Outlet } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setToken } from "../redux/user/userSlice";
+import { getNewAccessToken } from "../users/utils/usersApi.service";
 
 const Layout: React.FC = () => {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		const initializeAuth = async () => {
+			const accessToken = await getNewAccessToken();
+			if (accessToken) {
+				dispatch(setToken(accessToken));
+			}
+		};
+		initializeAuth();
+	}, [dispatch]);
 	return (
 		<Flowbite>
 			<Header />

@@ -1,12 +1,38 @@
-import { getFromApi } from "./api.service";
 import axios from "axios";
+import { getNewAccessToken } from "../users/utils/usersApi.service";
 
-const instance = axios.create();
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:1234";
+export const instance = axios.create({ baseURL: BASE_URL });
 instance.interceptors.response.use(undefined, (error) => {
 	return Promise.reject(error);
 });
+instance.interceptors.request.use(
+	async (config) => {
+		const token = localStorage.getItem("authToken"); // Function to get access token from your store
+		if (token) {
+			config.headers.Authorization = `Bearer ${token}`;
+		}
+		return config;
+	},
+	(error) => {
+		return Promise.reject(error);
+	},
+);
 
+instance.interceptors.response.use(
+	(response) => response,
+	async (error) => {
+		const originalRequest = error.config;
+		if (error.response.status === 401 && originalRequest._retry) {
+			originalRequest._retry = true;
+			const newToken = await getNewAccessToken();
+			// biome-ignore lint/complexity/useLiteralKeys: <explanation>
+			axios.defaults.headers.common["Authorization"] = `Bearer ${newToken}`;
+			return instance(originalRequest);
+		}
+		return Promise.reject(error);
+	},
+);
 export const getFromApi = async (
 	url: `/movies/${string}` | `/tv/${string}`,
 	page?: number,
@@ -36,10 +62,12 @@ export const getAvailableGenres = async (api: "movies" | "tv") => {
 };
 
 export const postToApi = async (
-	api: "movies" | "tv" | "users" | "users/login",
+	api: "movies" | "tv" | "users" | "users/login" | "users/refresh-token",
 	data: unknown,
 ) => {
-	const response = await instance.post(`${BASE_URL}/${api}`, data);
+	const response = await instance.post(`/${api}`, data, {
+		withCredentials: true,
+	});
 	return response.data;
 };
 
