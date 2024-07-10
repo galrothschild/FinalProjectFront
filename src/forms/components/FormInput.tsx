@@ -1,4 +1,4 @@
-import { Label, TextInput } from "flowbite-react";
+import { FloatingLabel, Label, TextInput } from "flowbite-react";
 import capitalizeString from "../../utils/capitalizeWord";
 import type {
 	FieldErrors,
@@ -23,14 +23,22 @@ const FormInput = <T extends FieldValues>({
 	const error = errors[inputName]?.message || "";
 	return (
 		<div className={wrap ? "md:w-5/12" : ""}>
-			<Label htmlFor={inputName}>{capitalizeString(inputName)}</Label>
-			<TextInput
+			<FloatingLabel
+				variant="filled"
+				id={inputName}
+				type={inputName === "password" ? "password" : "text"}
+				// placeholder={`Enter your ${inputName}`}
+				{...register(inputName)}
+				color={errors[inputName] ? "error" : "default"}
+				label={capitalizeString(inputName)}
+			/>
+			{/* <TextInput
 				id={inputName}
 				type={inputName === "password" ? "password" : "text"}
 				placeholder={`Enter your ${inputName}`}
-				{...register(inputName, { required: `${inputName} is required` })}
+				{...register(inputName)}
 				color={errors[inputName] ? "failure" : "default"}
-			/>
+			/> */}
 			{errors[inputName] && <p className="text-red-500">{String(error)}</p>}
 		</div>
 	);

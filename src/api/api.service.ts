@@ -57,8 +57,12 @@ export const getFromAPIFiltered = async (
 };
 
 export const getAvailableGenres = async (api: "movies" | "tv") => {
-	const response = await instance.get(`${BASE_URL}/${api}/genres`);
-	return response.data;
+	try {
+		const response = await instance.get(`${BASE_URL}/${api}/genres`);
+		return response.data;
+	} catch (error) {
+		return Promise.reject([]);
+	}
 };
 
 export const postToApi = async (

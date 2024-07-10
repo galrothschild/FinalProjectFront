@@ -6,25 +6,32 @@ import {
 } from "react-hook-form";
 import { Button, Card } from "flowbite-react";
 import FormInput from "../../forms/components/FormInput";
+import { z, type ZodObject, type ZodSchema } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type FormProps<T extends FieldValues> = {
-	inputs: Array<Path<T>>;
 	submit: { name: string; action: (data: T) => void };
 	showResetAndCancel: boolean;
 	callToAction: { show: boolean; text: string; link: string };
+	schema: ZodSchema | ZodObject<T>;
+	inputs: string[];
 };
 
 const Form = <T extends FieldValues>({
-	inputs,
 	showResetAndCancel,
 	submit,
 	callToAction,
+	schema,
+	inputs,
 }: FormProps<T>) => {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-	} = useForm<T>();
+	} = useForm<T>({
+		mode: "all",
+		resolver: zodResolver(schema),
+	});
 
 	const onSubmit: SubmitHandler<T> = (data) => {
 		submit.action(data);
@@ -34,14 +41,16 @@ const Form = <T extends FieldValues>({
 		<Card className={`w-full max-w-md ${inputs.length > 4 ? "max-w-4xl" : ""}`}>
 			<form
 				onSubmit={handleSubmit(onSubmit)}
-				className={`flex flex-col gap-3 ${inputs.length > 4 ? "md:flex-wrap md:flex-row md:justify-center" : ""}`}
+				className={`flex flex-col gap-3 ${
+					inputs.length > 4 ? "md:flex-wrap md:flex-row md:justify-center" : ""
+				}`}
 			>
 				{inputs.map((input) => (
 					<FormInput
 						key={input}
 						wrap={inputs.length > 4}
 						errors={errors}
-						inputName={input}
+						inputName={input as Path<T>}
 						register={register}
 					/>
 				))}

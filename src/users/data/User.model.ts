@@ -4,8 +4,8 @@ export type IUser = {
 	image: string;
 	name: {
 		first: string;
-		middle: string;
 		last: string;
+		middle?: string;
 	};
 	age: number;
 	_id?: string;
