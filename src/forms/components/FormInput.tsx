@@ -1,37 +1,49 @@
-import { FloatingLabel, Label, TextInput } from "flowbite-react";
+import { FloatingLabel, Label, TextInput, Tooltip } from "flowbite-react";
 import capitalizeString from "../../utils/capitalizeWord";
 import type {
-	FieldErrors,
 	FieldValues,
 	UseFormRegister,
 	Path,
+	FieldError,
 } from "react-hook-form";
 
 type FormInputProps<T extends FieldValues> = {
-	errors: FieldErrors<T>;
+	error: FieldError;
 	register: UseFormRegister<T>;
 	inputName: Path<T>;
 	wrap?: boolean;
 };
 
 const FormInput = <T extends FieldValues>({
-	errors,
+	error,
 	register,
 	inputName,
-	wrap,
 }: FormInputProps<T>) => {
-	const error = errors[inputName]?.message || "";
+	const message = error?.message || "";
+	let inputType = "text";
+	switch (true) {
+		case inputName.toLowerCase().includes("password"):
+			inputType = "password";
+			break;
+		case inputName.toLowerCase().includes("email"):
+			inputType = "email";
+			break;
+		default:
+			break;
+	}
 	return (
-		<div className={wrap ? "md:w-5/12" : ""}>
+		<div>
 			<FloatingLabel
 				variant="filled"
 				id={inputName}
-				type={inputName === "password" ? "password" : "text"}
+				type={inputType}
+				className="w-full"
 				// placeholder={`Enter your ${inputName}`}
 				{...register(inputName)}
-				color={errors[inputName] ? "error" : "default"}
+				color={error ? "error" : "default"}
 				label={capitalizeString(inputName)}
 			/>
+			<p className="text-red-500">{message ?? " "}</p>
 			{/* <TextInput
 				id={inputName}
 				type={inputName === "password" ? "password" : "text"}
@@ -39,7 +51,6 @@ const FormInput = <T extends FieldValues>({
 				{...register(inputName)}
 				color={errors[inputName] ? "failure" : "default"}
 			/> */}
-			{errors[inputName] && <p className="text-red-500">{String(error)}</p>}
 		</div>
 	);
 };

@@ -62,7 +62,7 @@ const SignupPage: React.FC = () => {
 			register(user).then((response) => console.log(response));
 		},
 	};
-	const showResetAndCancel = false;
+	const showResetAndCancel = true;
 	const callToAction = {
 		show: true,
 		text: "Already have an account? Login",

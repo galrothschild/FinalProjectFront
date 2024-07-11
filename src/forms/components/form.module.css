@@ -1,0 +1,7 @@
+.formOne {
+@apply grid grid-flow-row grid-cols-1 gap-3
+}
+
+.formTwo {
+@apply grid grid-flow-col grid-cols-1 gap-3
+}
