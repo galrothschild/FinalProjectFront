@@ -26,8 +26,15 @@ export const getUser = async (id: string) => {
 };
 
 export const register = async (data: IUser) => {
-	const user = await postToApi("users", data);
-	return user;
+	try {
+		const user = await postToApi("users", data);
+		return user;
+	} catch (error) {
+		const {
+			response: { data, status },
+		} = error as { response: { data: { message: string }; status: number } };
+		return { data, status };
+	}
 };
 
 export const getNewAccessToken = async () => {

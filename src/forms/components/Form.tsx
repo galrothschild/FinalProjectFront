@@ -16,6 +16,7 @@ type FormProps<T extends FieldValues> = {
 	callToAction: { show: boolean; text: string; link: string };
 	schema: ZodSchema | ZodObject<T>;
 	inputs: string[];
+	error: string;
 };
 
 const Form = <T extends FieldValues>({
@@ -24,6 +25,7 @@ const Form = <T extends FieldValues>({
 	callToAction,
 	schema,
 	inputs,
+	error,
 }: FormProps<T>) => {
 	const {
 		register,
@@ -38,14 +40,30 @@ const Form = <T extends FieldValues>({
 		submit.action(data);
 	};
 
+	const gridTemplateRows = `repeat(${Math.ceil(inputs.length / 2)}, minmax(0, 1fr))`;
+
 	return (
 		<Card className={`w-full max-w-md ${inputs.length > 4 ? "max-w-4xl" : ""}`}>
+			<h1 className="text-2xl font-bold dark:text-gray-100 text-center">
+				{submit.name}
+			</h1>
+			<p className="text-center h-5 text-red-500">{error}</p>
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
+				<style>
+					{`
+						.grid-template-rows {
+							grid-template-rows: repeat(${inputs.length}, minmax(0, 1fr));
+					}
+						@media (min-width: 768px) {
+							.grid-template-rows {
+								grid-template-rows: ${gridTemplateRows};
+							}
+						}
+					`}
+				</style>
 				<div
 					className={`grid grid-flow-col grid-cols-1 gap-3 ${
-						inputs.length > 4
-							? `md:grid-cols-2 grid-rows-${Math.ceil(inputs.length / 2)}`
-							: ""
+						inputs.length > 4 ? "md:grid-cols-2 grid-template-rows" : ""
 					}`}
 				>
 					{inputs.map((input) => (

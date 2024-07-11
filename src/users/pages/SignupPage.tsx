@@ -1,17 +1,37 @@
+import { useState } from "react";
 import Form from "../../forms/components/Form";
-import { register } from "../utils/usersApi.service";
+import { login, register } from "../utils/usersApi.service";
 import { z } from "zod";
+import { useNavigate } from "react-router-dom";
 
 const signupSchema = z.object({
 	username: z.string().min(6),
 	email: z.string().email(),
-	password: z.string().regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/),
-	confirmPassword: z.string().regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/),
-	image: z.string().url().default("https://picsum.photos/300/200"),
+	password: z
+		.string()
+		.regex(
+			/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+			"At least One Capital, one lowercase and one number",
+		),
+	"confirm password": z
+		.string()
+		.regex(
+			/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+			"At least One Capital, one lowercase and one number",
+		),
+	image: z
+		.string()
+		.url()
+		.default("https://picsum.photos/300/200")
+		.or(z.literal("")),
 	"first name": z.string().min(2),
 	"middle name": z.string().optional(),
 	"last name": z.string().min(2),
-	age: z.number(),
+	age: z
+		.string()
+		.regex(/^\d+$/, { message: "Age must be a number" })
+		.transform((val) => Number.parseInt(val, 10))
+		.refine((val) => val > 0, { message: "Age must be a positive number" }),
 });
 
 // interface SignupFormInputs extends FieldValues {
@@ -27,19 +47,16 @@ const signupSchema = z.object({
 type SignupFormInputs = z.infer<typeof signupSchema>;
 
 const inputs: string[] = Object.keys(signupSchema.shape);
-console.log(inputs);
-const schema = signupSchema.superRefine(
-	({ confirmPassword, password }, ctx) => {
-		if (confirmPassword !== password) {
-			ctx.addIssue({
-				code: "custom",
-				message: "The passwords did not match",
-				path: ["confirmPassword"],
-			});
-		}
+const schema = signupSchema.refine(
+	(data) => data.password === data["confirm password"],
+	{
+		message: "Passwords do not match",
+		path: ["confirm password"],
 	},
 );
 const SignupPage: React.FC = () => {
+	const navigate = useNavigate();
+	const [error, setError] = useState("");
 	const submit = {
 		name: "Sign up",
 		action: (data: SignupFormInputs) => {
@@ -59,7 +76,16 @@ const SignupPage: React.FC = () => {
 				...rest,
 				image: rest.image || "https://picsum.photos/300/200",
 			};
-			register(user).then((response) => console.log(response));
+			register(user).then((response) => {
+				if (response.status >= 400) {
+					setError(response.data);
+				}
+				if (response.username) {
+					setError("");
+					login({ username: data.username, password: data.password });
+					navigate("/");
+				}
+			});
 		},
 	};
 	const showResetAndCancel = true;
@@ -75,6 +101,7 @@ const SignupPage: React.FC = () => {
 			submit={submit}
 			showResetAndCancel={showResetAndCancel}
 			callToAction={callToAction}
+			error={error}
 		/>
 	);
 };

@@ -43,7 +43,7 @@ const FormInput = <T extends FieldValues>({
 				color={error ? "error" : "default"}
 				label={capitalizeString(inputName)}
 			/>
-			<p className="text-red-500">{message ?? " "}</p>
+			<p className="text-red-500 h-5">{message ?? " "}</p>
 			{/* <TextInput
 				id={inputName}
 				type={inputName === "password" ? "password" : "text"}
