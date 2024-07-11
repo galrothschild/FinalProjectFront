@@ -5,12 +5,13 @@ import { setUser } from "../../redux/user/userSlice";
 import type { AppDispatch } from "../../redux/store";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { z } from "zod";
 
-interface LoginFormInputs extends FieldValues {
-	username: string;
-	password: string;
-}
-
+const loginSchema = z.object({
+	username: z.string().min(6),
+	password: z.string().min(8),
+});
+type LoginFormInputs = z.infer<typeof loginSchema>;
 const Login: React.FC = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const navigate = useNavigate();
@@ -31,6 +32,7 @@ const Login: React.FC = () => {
 	};
 	return (
 		<Form<LoginFormInputs>
+			schema={loginSchema}
 			inputs={inputs}
 			submit={submit}
 			showResetAndCancel={showResetAndCancel}
