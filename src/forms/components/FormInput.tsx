@@ -44,13 +44,6 @@ const FormInput = <T extends FieldValues>({
 				label={capitalizeString(inputName)}
 			/>
 			<p className="text-red-500 h-5">{message ?? " "}</p>
-			{/* <TextInput
-				id={inputName}
-				type={inputName === "password" ? "password" : "text"}
-				placeholder={`Enter your ${inputName}`}
-				{...register(inputName)}
-				color={errors[inputName] ? "failure" : "default"}
-			/> */}
 		</div>
 	);
 };
