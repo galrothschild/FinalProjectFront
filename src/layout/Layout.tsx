@@ -1,20 +1,25 @@
 import { memo, useEffect } from "react";
 import Header from "./header/Header";
 import { Flowbite } from "flowbite-react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../redux/user/userSlice";
 import { getNewAccessToken, getUser } from "../users/utils/usersApi.service";
+import ToastStack from "../toast/ToastStack";
 
 const Layout: React.FC = () => {
 	const dispatch = useDispatch();
-
+	const navigate = useNavigate();
 	useEffect(() => {
 		const initializeAuth = async () => {
-			const userData = await getNewAccessToken();
-			if (userData) {
-				dispatch(setToken(userData.accessToken));
-				dispatch(setUser(userData.user));
+			try {
+				const userData = await getNewAccessToken();
+				if (userData) {
+					dispatch(setToken(userData.accessToken));
+					dispatch(setUser(userData.user));
+				}
+			} catch (error) {
+				console.log(error);
 			}
 		};
 		initializeAuth();
@@ -25,6 +30,13 @@ const Layout: React.FC = () => {
 			<div className="flex px-5 py-3 flex-col justify-center items-center sm:px-28">
 				<Outlet />
 			</div>
+			<ToastStack
+				toasts={[
+					{ message: "You have been logged out", type: "info" },
+					{ message: "Welcome back!", type: "success" },
+				]}
+				position="top-right"
+			/>
 		</Flowbite>
 	);
 };

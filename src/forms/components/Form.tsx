@@ -3,12 +3,13 @@ import {
 	useForm,
 	type SubmitHandler,
 	type Path,
-	FieldError,
+	type FieldError,
 } from "react-hook-form";
 import { Button, Card } from "flowbite-react";
 import FormInput from "../../forms/components/FormInput";
-import { z, type ZodObject, type ZodSchema } from "zod";
+import type { ZodObject, ZodSchema } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
 
 type FormProps<T extends FieldValues> = {
 	submit: { name: string; action: (data: T) => void };
@@ -42,6 +43,7 @@ const Form = <T extends FieldValues>({
 
 	const gridTemplateRows = `repeat(${Math.ceil(inputs.length / 2)}, minmax(0, 1fr))`;
 
+	const navigate = useNavigate();
 	return (
 		<Card className={`w-full max-w-md ${inputs.length > 4 ? "max-w-4xl" : ""}`}>
 			<h1 className="text-2xl font-bold dark:text-gray-100 text-center">
@@ -50,7 +52,8 @@ const Form = <T extends FieldValues>({
 			<p className="text-center h-5 text-red-500">{error}</p>
 			<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
 				<style>
-					{`
+					{inputs.length > 4 &&
+						`
 						.grid-template-rows {
 							grid-template-rows: repeat(${inputs.length}, minmax(0, 1fr));
 					}
@@ -62,8 +65,10 @@ const Form = <T extends FieldValues>({
 					`}
 				</style>
 				<div
-					className={`grid grid-flow-col grid-cols-1 gap-3 ${
-						inputs.length > 4 ? "md:grid-cols-2 grid-template-rows" : ""
+					className={`grid grid-flow-row grid-cols-1 gap-3 ${
+						inputs.length > 4
+							? "md:grid-cols-2 md:grid-flow-col grid-template-rows"
+							: ""
 					}`}
 				>
 					{inputs.map((input) => (
@@ -84,7 +89,12 @@ const Form = <T extends FieldValues>({
 						<Button type="reset" className="w-full" color="warning">
 							Reset
 						</Button>
-						<Button type="button" className="w-full" color="danger">
+						<Button
+							type="button"
+							className="w-full"
+							color="failure"
+							onClick={() => navigate(-1)}
+						>
 							Cancel
 						</Button>
 					</div>

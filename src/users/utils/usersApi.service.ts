@@ -2,11 +2,18 @@ import { getFromApiById, postToApi } from "../../api/api.service";
 import type { IUser, TokenPayload } from "../data/User.model";
 
 export const login = async (data: { username: string; password: string }) => {
-	const token = await postToApi("users/login", data);
-	localStorage.setItem("authToken", token);
-	const decodedToken = decodeToken(token) as TokenPayload;
-	const user = (await getUser(decodedToken._id)) as IUser;
-	return user;
+	try {
+		const token = await postToApi("users/login", data);
+		localStorage.setItem("authToken", token);
+		const decodedToken = decodeToken(token) as TokenPayload;
+		const user = (await getUser(decodedToken._id)) as IUser;
+		return user;
+	} catch (error) {
+		const {
+			response: { data, status },
+		} = error as { response: { data: { message: string }; status: number } };
+		return Promise.reject({ data, status });
+	}
 };
 const decodeToken = (token: string) => {
 	const base64Url = token.split(".")[1];
@@ -47,6 +54,6 @@ export const getNewAccessToken = async () => {
 		const user = await getUser(decoded._id);
 		return { accessToken, user };
 	} catch (error) {
-		console.error("Error refreshing token", error);
+		return Promise.reject(error);
 	}
 };
