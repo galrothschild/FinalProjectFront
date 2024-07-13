@@ -3,6 +3,8 @@ import Form from "../../forms/components/Form";
 import { login, register } from "../utils/usersApi.service";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/user/userSlice";
 
 const signupSchema = z.object({
 	username: z.string().min(6),
@@ -55,6 +57,7 @@ const schema = signupSchema.refine(
 	},
 );
 const SignupPage: React.FC = () => {
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [error, setError] = useState("");
 	const submit = {
@@ -83,6 +86,7 @@ const SignupPage: React.FC = () => {
 				if (response.username) {
 					setError("");
 					login({ username: data.username, password: data.password });
+					dispatch(setUser(response));
 					navigate("/");
 				}
 			});

@@ -88,3 +88,14 @@ export const getFromApiById = async (
 	const response = await instance.get(`${BASE_URL}/${url}/${id}`);
 	return response.data;
 };
+
+export const patchToApi = async (
+	url: "tv" | "movies",
+	id: string,
+	watched: boolean,
+) => {
+	const response = await instance.patch(
+		`${BASE_URL}/${url}/${id}/${watched ? "watched" : ""}`,
+	);
+	return response.data;
+};

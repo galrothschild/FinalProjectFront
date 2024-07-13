@@ -1,4 +1,6 @@
 import { Button, Card } from "flowbite-react";
+import { addToWatchlist, markAsWatched } from "../utils/cardsAPI";
+import { useToast } from "../../toast/hooks/useToast";
 
 type CardPropTypes = {
 	imgSrc: string;
@@ -6,7 +8,7 @@ type CardPropTypes = {
 	description: string;
 	genres: string;
 	id: number;
-	url: string;
+	url: "movies" | "tv";
 };
 
 // TODO: Make text overflow ellipsis normally
@@ -18,6 +20,15 @@ const CardComponent: React.FC<CardPropTypes> = ({
 	id,
 	url,
 }) => {
+	const invokeToast = useToast();
+	const handleWatched = async () => {
+		const response = await markAsWatched(url, id);
+		invokeToast(response, "success");
+	};
+	const handleWatchlist = async () => {
+		const response = await addToWatchlist(url, id);
+		invokeToast(response, "success");
+	};
 	return (
 		<Card
 			className="max-w-sm xl:basis-1/2"
@@ -37,18 +48,10 @@ const CardComponent: React.FC<CardPropTypes> = ({
 				{description}
 			</p>
 			<div className="flex gap-2 flex-col sm:flex-row">
-				<Button
-					className="hover:brightness-95"
-					href={`/${url}/${id}`}
-					onClick={() => addToWatchlist(url)}
-				>
+				<Button className="hover:brightness-95" onClick={handleWatchlist}>
 					Add to Watchlist
 				</Button>
-				<Button
-					className="hover:brightness-95"
-					href={`/${url}/${id}`}
-					onClick={() => markAsWatched(url)}
-				>
+				<Button className="hover:brightness-95" onClick={handleWatched}>
 					Mark as Watched
 				</Button>
 			</div>

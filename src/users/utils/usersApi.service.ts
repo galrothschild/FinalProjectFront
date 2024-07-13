@@ -48,7 +48,6 @@ export const getNewAccessToken = async () => {
 	try {
 		const response = await postToApi("users/refresh-token", {});
 		const accessToken = response;
-		console.log(accessToken);
 		localStorage.setItem("authToken", accessToken);
 		const decoded = decodeToken(accessToken);
 		const user = await getUser(decoded._id);
