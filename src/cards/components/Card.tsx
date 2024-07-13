@@ -22,11 +22,11 @@ const CardComponent: React.FC<CardPropTypes> = ({
 }) => {
 	const invokeToast = useToast();
 	const handleWatched = async () => {
-		const response = await markAsWatched(url, id);
+		const response = await markAsWatched(url, String(id));
 		invokeToast(response, "success");
 	};
 	const handleWatchlist = async () => {
-		const response = await addToWatchlist(url, id);
+		const response = await addToWatchlist(url, String(id));
 		invokeToast(response, "success");
 	};
 	return (
@@ -35,18 +35,19 @@ const CardComponent: React.FC<CardPropTypes> = ({
 			imgSrc={imgSrc}
 			imgAlt={title}
 			horizontal
-			// href={`/${url}/${id}`}
 		>
-			<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-				{title}
-			</h5>
-			<p className="text-sm text-gray-500 dark:text-gray-400">{genres}</p>
-			<p
-				className="w-full font-normal text-gray-700 dark:text-gray-400  mb-auto text-ellipsis overflow-y-hidden whitespace-wrap line-clamp-4"
-				title={description}
-			>
-				{description}
-			</p>
+			<a href={`/${url}/${id}`}>
+				<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+					{title}
+				</h5>
+				<p className="text-sm text-gray-500 dark:text-gray-400">{genres}</p>
+				<p
+					className="w-full font-normal text-gray-700 dark:text-gray-400  mb-auto text-ellipsis overflow-y-hidden whitespace-wrap line-clamp-4"
+					title={description}
+				>
+					{description}
+				</p>
+			</a>
 			<div className="flex gap-2 flex-col sm:flex-row">
 				<Button className="hover:brightness-95" onClick={handleWatchlist}>
 					Add to Watchlist
