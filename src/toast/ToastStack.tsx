@@ -1,16 +1,13 @@
+import { useSelector } from "react-redux";
 import ToastComponent from "./ToastComponent";
-import { Toast } from "flowbite-react";
+import type { RootState } from "../redux/store";
 
 type ToastStackProps = {
 	position: "top-right" | "top-left" | "bottom-right" | "bottom-left";
 };
 
 const ToastStack: React.FC<ToastStackProps> = () => {
-	const toasts: { message: string; type: "info" | "success" | "error" }[] = [
-		{ message: "You have been logged out", type: "info" },
-		{ message: "Welcome back!", type: "success" },
-		{ message: "Welcome back!", type: "error" },
-	];
+	const toasts = useSelector((state: RootState) => state.toast.toasts);
 	return (
 		<div
 			className={

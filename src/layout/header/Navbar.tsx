@@ -3,6 +3,7 @@ import NavLink from "../../router/utils/NavLink";
 import style from "./navbar.module.css";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../redux/store";
+import ProfileButton from "./ProfileButton";
 const NavbarComponent = () => {
 	const isLogged = useSelector((state: RootState) => state.user.isLogged);
 	return (
@@ -14,23 +15,28 @@ const NavbarComponent = () => {
 					alt="My Movies Logo"
 				/>
 			</Navbar.Brand>
-			<div className="flex md:order-2">
+
+			<Navbar.Brand className="md:order-2">
 				<DarkThemeToggle />
-				{!isLogged && (
+				<Navbar.Toggle />
+				{isLogged ? (
+					<ProfileButton />
+				) : (
 					<>
 						<Button className="ml-2" href="/login">
 							Sign In
 						</Button>
-						<Navbar.Toggle />
+						<Button className="ml-2" href="/signup">
+							Sign Up
+						</Button>
 					</>
 				)}
-			</div>
+			</Navbar.Brand>
 			<Navbar.Collapse>
 				<NavLink to="/" label="Home" />
 				<NavLink to="/tv" label="TV Shows" />
 				<NavLink to="/movies" label="Movies" />
-				<NavLink to="/contact" label="Contact" />
-				<NavLink to="/pricing" label="Pricing" />
+				<NavLink to="/sandbox" label="Sandbox" />
 			</Navbar.Collapse>
 		</Navbar>
 	);

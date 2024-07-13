@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { useState } from "react";
+import { addToast } from "../../redux/toast/toastSlice";
+import { useToast } from "../../toast/hooks/useToast";
 
 const loginSchema = z.object({
 	username: z.string().min(6),
@@ -14,6 +16,7 @@ const loginSchema = z.object({
 });
 type LoginFormInputs = z.infer<typeof loginSchema>;
 const Login: React.FC = () => {
+	const invokeToast = useToast();
 	const [error, setError] = useState("");
 	const dispatch = useDispatch<AppDispatch>();
 	const navigate = useNavigate();
@@ -24,13 +27,16 @@ const Login: React.FC = () => {
 			try {
 				const user = await login(data);
 				dispatch(setUser(user));
+				invokeToast("Welcome back!", "success");
 				navigate("/");
 			} catch (error) {
-				const { response } = error as {
-					response: { status: number; data: string };
+				console.log(error);
+				const { data, status } = error as {
+					status: number;
+					data: { error: string };
 				};
-				if (response.status >= 400) {
-					setError(response.data);
+				if (status >= 400) {
+					setError(data.error);
 				}
 			}
 		},

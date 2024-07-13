@@ -37,12 +37,18 @@ const CardComponent: React.FC<CardPropTypes> = ({
 				{description}
 			</p>
 			<div className="flex gap-2 flex-col sm:flex-row">
-				<Button className="hover:brightness-95" href={`/${url}/${id}`}>
-					{" "}
+				<Button
+					className="hover:brightness-95"
+					href={`/${url}/${id}`}
+					onClick={() => addToWatchlist(url)}
+				>
 					Add to Watchlist
 				</Button>
-				<Button className="hover:brightness-95" href={`/${url}/${id}`}>
-					{" "}
+				<Button
+					className="hover:brightness-95"
+					href={`/${url}/${id}`}
+					onClick={() => markAsWatched(url)}
+				>
 					Mark as Watched
 				</Button>
 			</div>

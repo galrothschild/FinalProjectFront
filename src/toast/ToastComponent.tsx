@@ -1,14 +1,13 @@
 import { Toast } from "flowbite-react";
 import { useState } from "react";
 import { HiCheck, HiExclamation, HiX } from "react-icons/hi";
-
+import style from "./toast.module.css";
 type ToastComponentProps = {
 	message: string;
 	type: "success" | "error" | "info";
 };
 
 const ToastComponent: React.FC<ToastComponentProps> = ({ message, type }) => {
-	const [show, setShow] = useState(true);
 	const getToastType = (type: string) => {
 		switch (type) {
 			case "success":
@@ -34,7 +33,7 @@ const ToastComponent: React.FC<ToastComponentProps> = ({ message, type }) => {
 		}
 	};
 	return (
-		<Toast className="p-4 rounded-md">
+		<Toast className={style.toast}>
 			{getToastType(type)}
 			<div className="ml-3 text-sm font-normal">{message}</div>
 		</Toast>

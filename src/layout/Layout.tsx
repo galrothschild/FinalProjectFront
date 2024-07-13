@@ -30,13 +30,7 @@ const Layout: React.FC = () => {
 			<div className="flex px-5 py-3 flex-col justify-center items-center sm:px-28">
 				<Outlet />
 			</div>
-			<ToastStack
-				toasts={[
-					{ message: "You have been logged out", type: "info" },
-					{ message: "Welcome back!", type: "success" },
-				]}
-				position="top-right"
-			/>
+			<ToastStack position="top-right" />
 		</Flowbite>
 	);
 };
