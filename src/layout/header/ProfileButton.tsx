@@ -1,11 +1,23 @@
-import { useSelector } from "react-redux";
-import type { RootState } from "../../redux/store";
-import { Dropdown, Avatar, Navbar } from "flowbite-react";
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../redux/store";
+import { Dropdown, Avatar } from "flowbite-react";
+import { logoutAPI } from "../../users/utils/usersApi.service";
+import { logout } from "../../redux/user/userSlice";
+import { useNavigate } from "react-router-dom";
+import { useToast } from "../../toast/hooks/useToast";
 
 const ProfileButton = () => {
 	const user = useSelector((state: RootState) => state.user.user);
 	const isLoggedIn = useSelector((state: RootState) => state.user.isLogged);
-
+	const dispatch = useDispatch<AppDispatch>();
+	const navigate = useNavigate();
+	const invokeToast = useToast();
+	const handleLogout = () => {
+		logoutAPI();
+		dispatch(logout());
+		navigate("/login");
+		invokeToast("See you next time", "info");
+	};
 	return isLoggedIn ? (
 		<div className="flex md:order-2">
 			<Dropdown
@@ -23,7 +35,7 @@ const ProfileButton = () => {
 				<Dropdown.Item>Settings</Dropdown.Item>
 				<Dropdown.Item>Earnings</Dropdown.Item>
 				<Dropdown.Divider />
-				<Dropdown.Item>Sign out</Dropdown.Item>
+				<Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
 			</Dropdown>
 		</div>
 	) : null;

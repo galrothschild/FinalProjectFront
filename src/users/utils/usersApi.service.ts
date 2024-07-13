@@ -57,3 +57,12 @@ export const getNewAccessToken = async () => {
 		return Promise.reject(error);
 	}
 };
+
+export const logoutAPI = () => {
+	localStorage.removeItem("authToken");
+	try {
+		postToApi("users/logout", {});
+	} catch (error) {
+		console.log(error);
+	}
+};

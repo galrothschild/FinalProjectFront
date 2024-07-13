@@ -20,9 +20,6 @@ const toastSlice = createSlice({
 			}>,
 		) => {
 			state.toasts.push(action.payload);
-			setTimeout(() => {
-				state.toasts.shift();
-			}, 5000);
 		},
 		removeToast: (state) => {
 			state.toasts.shift();

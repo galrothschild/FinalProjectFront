@@ -66,7 +66,13 @@ export const getAvailableGenres = async (api: "movies" | "tv") => {
 };
 
 export const postToApi = async (
-	api: "movies" | "tv" | "users" | "users/login" | "users/refresh-token",
+	api:
+		| "movies"
+		| "tv"
+		| "users"
+		| "users/login"
+		| "users/refresh-token"
+		| "users/logout",
 	data: unknown,
 ) => {
 	const response = await instance.post(`/${api}`, data, {

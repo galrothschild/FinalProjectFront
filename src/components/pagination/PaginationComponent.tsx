@@ -9,7 +9,7 @@ const PaginationComponent = () => {
 	const totalPages = useSelector((state: RootState) => state.page.total_pages);
 	const onPageChange = (page: number) => dispatch(setPage(page));
 	return (
-		<div className="flex overflow-x-auto w-full sm:justify-center">
+		<div className="flex overflow-x-auto w-full justify-center">
 			<Pagination
 				currentPage={currentPage}
 				totalPages={totalPages}

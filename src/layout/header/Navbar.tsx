@@ -16,7 +16,7 @@ const NavbarComponent = () => {
 				/>
 			</Navbar.Brand>
 
-			<Navbar.Brand className="md:order-2">
+			<div className="md:order-2 flex">
 				<DarkThemeToggle />
 				<Navbar.Toggle />
 				{isLogged ? (
@@ -31,7 +31,7 @@ const NavbarComponent = () => {
 						</Button>
 					</>
 				)}
-			</Navbar.Brand>
+			</div>
 			<Navbar.Collapse>
 				<NavLink to="/" label="Home" />
 				<NavLink to="/tv" label="TV Shows" />

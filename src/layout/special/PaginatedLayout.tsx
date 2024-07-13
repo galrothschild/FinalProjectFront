@@ -7,7 +7,7 @@ type PaginatedLayoutProps = {
 
 const PaginatedLayout: React.FC<PaginatedLayoutProps> = ({ children }) => {
 	return (
-		<div className="flex flex-col gap-5 overflow-x-auto sm:justify-center">
+		<div className="flex flex-col gap-5 overflow-x-auto justify-center">
 			<PaginationComponent />
 			{children}
 			<PaginationComponent />

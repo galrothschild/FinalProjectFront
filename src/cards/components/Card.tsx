@@ -31,7 +31,7 @@ const CardComponent: React.FC<CardPropTypes> = ({
 			</h5>
 			<p className="text-sm text-gray-500 dark:text-gray-400">{genres}</p>
 			<p
-				className="font-normal text-gray-700 dark:text-gray-400  mb-auto text-ellipsis overflow-y-hidden whitespace-wrap line-clamp-4"
+				className="w-full font-normal text-gray-700 dark:text-gray-400  mb-auto text-ellipsis overflow-y-hidden whitespace-wrap line-clamp-4"
 				title={description}
 			>
 				{description}
