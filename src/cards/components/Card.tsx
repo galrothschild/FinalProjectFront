@@ -1,6 +1,9 @@
 import { Button, Card } from "flowbite-react";
 import { addToWatchlist, markAsWatched } from "../utils/cardsAPI";
 import { useToast } from "../../toast/hooks/useToast";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { AddRemoveEntry } from "../../redux/user/userSlice";
 
 type CardPropTypes = {
 	imgSrc: string;
@@ -21,13 +24,37 @@ const CardComponent: React.FC<CardPropTypes> = ({
 	url,
 }) => {
 	const invokeToast = useToast();
+	const dispatch = useDispatch();
+	const Lists = useSelector((state: RootState) => state.user.Lists);
+	const typeMap: { [key: string]: "tv show" | "movie" } = {
+		tv: "tv show",
+		movies: "movie",
+	};
+	const watched = Lists.watched.find(
+		(entry) => +entry.id === id && entry.type === typeMap[url],
+	);
+	const watchlist = Lists.watchList.find(
+		(entry) => +entry.id === id && entry.type === typeMap[url],
+	);
 	const handleWatched = async () => {
 		const response = await markAsWatched(url, String(id));
 		invokeToast(response, "success");
+		dispatch(
+			AddRemoveEntry({
+				list: "watched",
+				entry: { id: String(id), type: typeMap[url] },
+			}),
+		);
 	};
 	const handleWatchlist = async () => {
 		const response = await addToWatchlist(url, String(id));
 		invokeToast(response, "success");
+		dispatch(
+			AddRemoveEntry({
+				list: "watchList",
+				entry: { id: String(id), type: typeMap[url] },
+			}),
+		);
 	};
 	return (
 		<Card
@@ -49,11 +76,19 @@ const CardComponent: React.FC<CardPropTypes> = ({
 				</p>
 			</a>
 			<div className="flex gap-2 flex-col sm:flex-row">
-				<Button className="hover:brightness-95" onClick={handleWatchlist}>
-					Add to Watchlist
+				<Button
+					className="hover:brightness-95"
+					color={watchlist ? "red" : "blue"}
+					onClick={handleWatchlist}
+				>
+					{watchlist ? "Remove from List" : "Add to Watchlist"}
 				</Button>
-				<Button className="hover:brightness-95" onClick={handleWatched}>
-					Mark as Watched
+				<Button
+					className="hover:brightness-95 "
+					color={watched ? "red" : "blue"}
+					onClick={handleWatched}
+				>
+					{watched ? "Mark as Unwatched" : "Mark as Watched"}
 				</Button>
 			</div>
 		</Card>

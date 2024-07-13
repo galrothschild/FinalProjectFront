@@ -14,6 +14,7 @@ const Layout: React.FC = () => {
 		const initializeAuth = async () => {
 			try {
 				const userData = await getNewAccessToken();
+				console.log(userData);
 				if (userData) {
 					dispatch(setToken(userData.accessToken));
 					dispatch(setUser(userData.user));

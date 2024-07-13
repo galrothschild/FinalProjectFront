@@ -1,10 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { IUser } from "../../users/data/User.model";
+
+type ListEntry = { id: string; type: "movie" | "tv show" };
 
 type userSliceState = {
 	user: IUser;
 	token: string;
 	isLogged: boolean;
+	Lists: {
+		watchList: ListEntry[];
+		watched: ListEntry[];
+	};
 };
 
 const initialState: userSliceState = {
@@ -22,6 +28,10 @@ const initialState: userSliceState = {
 	},
 	token: "",
 	isLogged: false,
+	Lists: {
+		watchList: [],
+		watched: [],
+	},
 };
 
 const userSlice = createSlice({
@@ -30,6 +40,10 @@ const userSlice = createSlice({
 	reducers: {
 		setUser: (state, action) => {
 			state.user = action.payload;
+			state.Lists = {
+				watched: action.payload.watched,
+				watchList: action.payload.watchList,
+			};
 			state.isLogged = true;
 		},
 		setToken: (state, action) => {
@@ -40,8 +54,30 @@ const userSlice = createSlice({
 			state.isLogged = false;
 			state.token = "";
 		},
+		AddRemoveEntry: (
+			state,
+			action: PayloadAction<{
+				list: "watched" | "watchList";
+				entry: ListEntry;
+			}>,
+		) => {
+			const { entry, list } = action.payload;
+			const index = state.Lists[list].findIndex(
+				(listEntry) =>
+					listEntry.id === entry.id && listEntry.type === entry.type,
+			);
+			if (index !== -1) {
+				state.Lists[list].splice(index, 1);
+				return;
+			}
+			state.Lists[list].push(entry);
+		},
+		setLists: (state, action) => {
+			state.Lists = action.payload;
+		},
 	},
 });
 
-export const { setUser, setToken, logout } = userSlice.actions;
+export const { setUser, setToken, logout, AddRemoveEntry, setLists } =
+	userSlice.actions;
 export default userSlice.reducer;

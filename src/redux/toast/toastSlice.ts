@@ -19,7 +19,9 @@ const toastSlice = createSlice({
 				type: "info" | "success" | "error";
 			}>,
 		) => {
-			state.toasts.push(action.payload);
+			if (state.toasts.length <= 3) {
+				state.toasts.push(action.payload);
+			}
 		},
 		removeToast: (state) => {
 			state.toasts.shift();
