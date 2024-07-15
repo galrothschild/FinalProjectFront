@@ -1,16 +1,13 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { IUser } from "../../users/data/User.model";
 
-type ListEntry = { id: string; type: "movie" | "tv show" };
+type ListEntry = { id: string; type: "movie" | "tv show"; watched: boolean };
 
 type userSliceState = {
 	user: IUser;
 	token: string;
 	isLogged: boolean;
-	Lists: {
-		watchList: ListEntry[];
-		watched: ListEntry[];
-	};
+	watchList: ListEntry[];
 };
 
 const initialState: userSliceState = {
@@ -28,10 +25,8 @@ const initialState: userSliceState = {
 	},
 	token: "",
 	isLogged: false,
-	Lists: {
-		watchList: [],
-		watched: [],
-	},
+
+	watchList: [],
 };
 
 const userSlice = createSlice({
@@ -40,10 +35,7 @@ const userSlice = createSlice({
 	reducers: {
 		setUser: (state, action) => {
 			state.user = action.payload;
-			state.Lists = {
-				watched: action.payload.watched,
-				watchList: action.payload.watchList,
-			};
+			state.watchList = action.payload.watchList;
 			state.isLogged = true;
 		},
 		setToken: (state, action) => {
@@ -57,27 +49,30 @@ const userSlice = createSlice({
 		AddRemoveEntry: (
 			state,
 			action: PayloadAction<{
-				list: "watched" | "watchList";
 				entry: ListEntry;
 			}>,
 		) => {
-			const { entry, list } = action.payload;
-			const index = state.Lists[list].findIndex(
+			const { entry } = action.payload;
+			const index = state.watchList.findIndex(
 				(listEntry) =>
 					listEntry.id === entry.id && listEntry.type === entry.type,
 			);
-			if (index !== -1) {
-				state.Lists[list].splice(index, 1);
+			if (index === -1) {
+				state.watchList.push(entry);
 				return;
 			}
-			state.Lists[list].push(entry);
+			if (state.watchList[index].watched !== entry.watched) {
+				state.watchList[index].watched = entry.watched;
+				return;
+			}
+			state.watchList.splice(index, 1);
 		},
-		setLists: (state, action) => {
-			state.Lists = action.payload;
+		setWatchlist: (state, action) => {
+			state.watchList = action.payload;
 		},
 	},
 });
 
-export const { setUser, setToken, logout, AddRemoveEntry, setLists } =
+export const { setUser, setToken, logout, AddRemoveEntry, setWatchlist } =
 	userSlice.actions;
 export default userSlice.reducer;
