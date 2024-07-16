@@ -4,7 +4,7 @@ import { Flowbite } from "flowbite-react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../redux/user/userSlice";
-import { getNewAccessToken, getUser } from "../users/utils/usersApi.service";
+import { getNewAccessToken } from "../users/utils/usersApi.service";
 import ToastStack from "../toast/ToastStack";
 
 const Layout: React.FC = () => {

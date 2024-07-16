@@ -1,4 +1,4 @@
-import { getFromApiById, postToApi } from "../../api/api.service";
+import { getFromApi, getFromApiById, postToApi } from "../../api/api.service";
 import type { IUser, TokenPayload } from "../data/User.model";
 
 export const login = async (data: { username: string; password: string }) => {
@@ -64,4 +64,9 @@ export const logoutAPI = () => {
 	} catch (error) {
 		console.log(error);
 	}
+};
+
+export const getUsersWatchList = async () => {
+	const response = await getFromApi("/users/watchlist");
+	return response;
 };
