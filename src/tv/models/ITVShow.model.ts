@@ -26,6 +26,7 @@ export interface ITVShow {
 	status: string;
 	tagline: string;
 	type: string;
+	watched?: boolean;
 }
 
 export interface Episode {

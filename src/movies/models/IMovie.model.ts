@@ -24,6 +24,7 @@ export interface IMovie {
 	video: boolean;
 	vote_average: number;
 	vote_count: number;
+	watched?: boolean;
 }
 
 export interface Genre {

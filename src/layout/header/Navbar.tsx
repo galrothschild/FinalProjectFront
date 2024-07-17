@@ -37,6 +37,7 @@ const NavbarComponent = () => {
 				<NavLink to="/tv" label="TV Shows" />
 				<NavLink to="/movies" label="Movies" />
 				<NavLink to="/sandbox" label="Sandbox" />
+				<NavLink to="/watchlist" label="Watchlist" />
 			</Navbar.Collapse>
 		</Navbar>
 	);
