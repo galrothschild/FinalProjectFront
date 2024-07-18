@@ -53,7 +53,7 @@ const CardComponent: React.FC<CardPropTypes> = ({
 	};
 	return (
 		<Card
-			className="max-w-sm xl:basis-1/2"
+			className="max-w-sm xl:basis-1/2 xl:min-w-[600px]"
 			imgSrc={imgSrc}
 			imgAlt={title}
 			horizontal
@@ -76,7 +76,7 @@ const CardComponent: React.FC<CardPropTypes> = ({
 					color={entry && !entry.watched ? "red" : "blue"}
 					onClick={handleWatchlist}
 				>
-					{!entry?.watched ? "Remove from List" : "Add to Watchlist"}
+					{entry && !entry?.watched ? "Remove from List" : "Add to Watchlist"}
 				</Button>
 				<Button
 					className="hover:brightness-95 "

@@ -8,5 +8,6 @@ export const normalizeMovies = (movies: IMovie[]): CardData[] => {
 		genres: movie.genres.map((genre) => genre.name).join(", "),
 		imgSrc: movie.poster_path,
 		title: movie.title,
+		url: "movies",
 	}));
 };

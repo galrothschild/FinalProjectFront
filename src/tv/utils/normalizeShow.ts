@@ -8,5 +8,6 @@ export const normalizeTVShows = (tvShows: ITVShow[]): CardData[] => {
 		genres: tvShow.genres.map((genre) => genre.name).join(", "),
 		imgSrc: tvShow.poster_path,
 		title: tvShow.name,
+		url: "tv",
 	}));
 };

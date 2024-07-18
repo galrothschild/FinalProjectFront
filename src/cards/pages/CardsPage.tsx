@@ -8,6 +8,7 @@ import Filter from "../../layout/special/Filter";
 import type { Genre } from "../../movies/models/IMovie.model";
 import { useEffect } from "react";
 import { setPage } from "../../redux/pages/pageSlice";
+import MappedCards from "../components/MappedCards";
 
 const CardsGallery = "flex gap-3 flex-wrap justify-center md:basis-1/2";
 
@@ -17,6 +18,7 @@ export type CardData = {
 	genres: string;
 	imgSrc: string;
 	title: string;
+	url: "movies" | "tv";
 };
 
 type CardsPageProps = {
@@ -55,7 +57,7 @@ const CardsPage: React.FC<CardsPageProps> = ({
 					setSelectedOptions={genres.setSelected}
 				/>
 			</div>
-			{!isLoading ? (
+			{/* {!isLoading ? (
 				<div className={CardsGallery}>
 					{cards.map((card) => (
 						<CardComponent
@@ -75,7 +77,8 @@ const CardsPage: React.FC<CardsPageProps> = ({
 						<CardPlaceHolder key={Math.random()} />
 					))}
 				</div>
-			)}
+			)} */}
+			<MappedCards isLoading={isLoading} cards={cards} pageName={pageName} />
 		</PaginatedLayout>
 	);
 };
