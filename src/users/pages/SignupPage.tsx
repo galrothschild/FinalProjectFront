@@ -35,17 +35,6 @@ const signupSchema = z.object({
 		.transform((val) => Number.parseInt(val, 10))
 		.refine((val) => val > 0, { message: "Age must be a positive number" }),
 });
-
-// interface SignupFormInputs extends FieldValues {
-// 	username: string;
-// 	email: string;
-// 	password: string;
-// 	image: string;
-// 	"first name": string;
-// 	"last name": string;
-// 	"middle name": string;
-// 	age: number;
-// }
 type SignupFormInputs = z.infer<typeof signupSchema>;
 
 const inputs: string[] = Object.keys(signupSchema.shape);

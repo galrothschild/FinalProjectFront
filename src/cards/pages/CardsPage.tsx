@@ -1,6 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import CardComponent from "../components/Card";
-import CardPlaceHolder from "../components/CardPlaceHolder";
 import type { AppDispatch, RootState } from "../../redux/store";
 import PaginatedLayout from "../../layout/special/PaginatedLayout";
 import SearchBar from "../../layout/special/SearchBar";
@@ -9,8 +7,6 @@ import type { Genre } from "../../movies/models/IMovie.model";
 import { useEffect } from "react";
 import { setPage } from "../../redux/pages/pageSlice";
 import MappedCards from "../components/MappedCards";
-
-const CardsGallery = "flex gap-3 flex-wrap justify-center md:basis-1/2";
 
 export type CardData = {
 	id: number;
