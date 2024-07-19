@@ -8,6 +8,7 @@ type userSliceState = {
 	token: string;
 	isLogged: boolean;
 	watchList: ListEntry[];
+	isAdmin: boolean;
 };
 
 const initialState: userSliceState = {
@@ -25,7 +26,7 @@ const initialState: userSliceState = {
 	},
 	token: "",
 	isLogged: false,
-
+	isAdmin: false,
 	watchList: [],
 };
 
@@ -37,6 +38,7 @@ const userSlice = createSlice({
 			state.user = action.payload;
 			state.watchList = action.payload.watchList;
 			state.isLogged = true;
+			state.isAdmin = action.payload.isAdmin;
 		},
 		setToken: (state, action) => {
 			state.token = action.payload;

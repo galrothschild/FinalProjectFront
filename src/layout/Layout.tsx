@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../redux/user/userSlice";
 import { getNewAccessToken } from "../users/utils/usersApi.service";
 import ToastStack from "../toast/ToastStack";
+import FooterComponent from "./Footer";
 
 const Layout: React.FC = () => {
 	const dispatch = useDispatch();
@@ -28,10 +29,11 @@ const Layout: React.FC = () => {
 	return (
 		<Flowbite>
 			<Header />
-			<div className="flex px-5 py-3 flex-col justify-center items-center sm:px-28">
+			<div className="flex px-5 py-3 flex-col justify-center items-center sm:px-28 min-h-[75dvh]">
 				<Outlet />
 			</div>
 			<ToastStack position="top-right" />
+			<FooterComponent />
 		</Flowbite>
 	);
 };

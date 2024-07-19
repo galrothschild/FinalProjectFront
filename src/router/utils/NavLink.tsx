@@ -6,9 +6,10 @@ import { useDispatch } from "react-redux";
 type NavLinkType = {
 	to: string;
 	label: string;
+	className?: string;
 };
 
-const NavLink = ({ to, label }: NavLinkType) => {
+const NavLink = ({ to, label, className }: NavLinkType) => {
 	const clickHandler = useLinkClickHandler(to);
 	const dispatch = useDispatch<AppDispatch>();
 	const location = useLocation();
@@ -20,6 +21,7 @@ const NavLink = ({ to, label }: NavLinkType) => {
 				dispatch(setSearch(""));
 				return clickHandler;
 			}}
+			className={className}
 		>
 			{label}
 		</Navbar.Link>
