@@ -1,3 +1,5 @@
+import type { ICastMember } from "../../utils/common.model";
+
 export interface IMovie {
 	adult: boolean;
 	backdrop_path: string;
@@ -25,6 +27,7 @@ export interface IMovie {
 	vote_average: number;
 	vote_count: number;
 	watched?: boolean;
+	cast: ICastMember[];
 }
 
 export interface Genre {

@@ -1,7 +1,7 @@
 import { memo, useEffect } from "react";
 import Header from "./header/Header";
 import { Flowbite } from "flowbite-react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../redux/user/userSlice";
 import { getNewAccessToken } from "../users/utils/usersApi.service";
@@ -11,15 +11,19 @@ import FooterComponent from "./Footer";
 const Layout: React.FC = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const { pathname } = useLocation();
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const initializeAuth = async () => {
 			try {
+				if (["/login", "/signup"].includes(pathname)) return;
 				const userData = await getNewAccessToken();
 				if (userData) {
 					dispatch(setToken(userData.accessToken));
 					dispatch(setUser(userData.user));
 				}
 			} catch (error) {
+				if (["/login", "/signup", "/about"].includes(pathname)) return;
 				console.log(error);
 				navigate("/login");
 			}

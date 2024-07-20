@@ -2,6 +2,7 @@ import type {
 	Genre,
 	ProductionCompany,
 } from "../../movies/models/IMovie.model";
+import type { ICastMember } from "../../utils/common.model";
 
 export interface ITVShow {
 	backdrop_path: string;
@@ -27,6 +28,7 @@ export interface ITVShow {
 	tagline: string;
 	type: string;
 	watched?: boolean;
+	cast: ICastMember[];
 }
 
 export interface Episode {
