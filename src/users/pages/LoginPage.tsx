@@ -31,14 +31,8 @@ const Login: React.FC = () => {
 				invokeToast("Welcome back!", "success");
 				navigate("/");
 			} catch (error) {
-				console.log(error);
-				const { data, status } = error as {
-					status: number;
-					data: { error: string };
-				};
-				if (status >= 400) {
-					setError(data.error);
-				}
+				setError(String(error));
+				invokeToast("Invalid credentials", "error");
 			}
 		},
 	};

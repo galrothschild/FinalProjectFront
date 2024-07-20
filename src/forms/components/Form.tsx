@@ -10,6 +10,7 @@ import FormInput from "../../forms/components/FormInput";
 import type { ZodObject, ZodSchema } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 type FormProps<T extends FieldValues> = {
 	submit: { name: string; action: (data: T) => void };
@@ -18,6 +19,7 @@ type FormProps<T extends FieldValues> = {
 	schema: ZodSchema | ZodObject<T>;
 	inputs: string[];
 	error: string;
+	defaultValues?: T;
 };
 
 const Form = <T extends FieldValues>({
@@ -27,11 +29,13 @@ const Form = <T extends FieldValues>({
 	schema,
 	inputs,
 	error,
+	defaultValues,
 }: FormProps<T>) => {
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
+		reset,
 	} = useForm<T>({
 		mode: "all",
 		resolver: zodResolver(schema),
@@ -44,6 +48,10 @@ const Form = <T extends FieldValues>({
 	const gridTemplateRows = `repeat(${Math.ceil(inputs.length / 2)}, minmax(0, 1fr))`;
 
 	const navigate = useNavigate();
+	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+	useEffect(() => {
+		defaultValues && reset(defaultValues);
+	}, [defaultValues]);
 	return (
 		<Card className={`w-full max-w-md ${inputs.length > 4 ? "max-w-4xl" : ""}`}>
 			<h1 className="text-2xl font-bold dark:text-gray-100 text-center">
@@ -86,7 +94,12 @@ const Form = <T extends FieldValues>({
 				</Button>
 				{showResetAndCancel && (
 					<div className="flex gap-3">
-						<Button type="reset" className="w-full" color="warning">
+						<Button
+							type="button"
+							onClick={() => reset(defaultValues)}
+							className="w-full"
+							color="warning"
+						>
 							Reset
 						</Button>
 						<Button

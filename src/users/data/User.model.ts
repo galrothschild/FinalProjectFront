@@ -7,7 +7,6 @@ export type IUser = {
 		last: string;
 		middle?: string;
 	};
-	age: number;
 	_id?: string;
 	password?: string;
 };

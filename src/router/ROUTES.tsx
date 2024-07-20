@@ -6,6 +6,7 @@ import TVShowPage from "../tv/pages/TVShowPage";
 import TVShowsPage from "../tv/pages/TVShowsPage";
 import LoginPage from "../users/pages/LoginPage";
 import SignupPage from "../users/pages/SignupPage";
+import UpdateUserPage from "../users/pages/UpdateUserPage";
 import WatchlistPage from "../users/pages/WatchlistPage";
 type route = {
 	path: string;
@@ -60,5 +61,9 @@ export const ROUTES: route[] = [
 	{
 		path: "/contact",
 		element: <App />,
+	},
+	{
+		path: "/users/:id",
+		element: <UpdateUserPage />,
 	},
 ];

@@ -1,4 +1,9 @@
-import { getFromApi, getFromApiById, postToApi } from "../../api/api.service";
+import {
+	getFromApi,
+	getFromApiById,
+	postToApi,
+	putToAPI,
+} from "../../api/api.service";
 import type { IUser, TokenPayload } from "../data/User.model";
 
 export const login = async (data: { username: string; password: string }) => {
@@ -69,4 +74,16 @@ export const logoutAPI = () => {
 export const getUsersWatchList = async () => {
 	const response = await getFromApi("/users/watchlist");
 	return response;
+};
+
+export const updateUser = async (data: IUser, id: string) => {
+	try {
+		const response = await putToAPI(`users/${id}`, data);
+		return response;
+	} catch (error) {
+		const {
+			response: { data, status },
+		} = error as { response: { data: { message: string }; status: number } };
+		return { data, status };
+	}
 };

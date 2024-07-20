@@ -29,11 +29,6 @@ const signupSchema = z.object({
 	"first name": z.string().min(2),
 	"middle name": z.string().optional(),
 	"last name": z.string().min(2),
-	age: z
-		.string()
-		.regex(/^\d+$/, { message: "Age must be a number" })
-		.transform((val) => Number.parseInt(val, 10))
-		.refine((val) => val > 0, { message: "Age must be a positive number" }),
 });
 type SignupFormInputs = z.infer<typeof signupSchema>;
 

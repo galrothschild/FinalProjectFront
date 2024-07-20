@@ -44,19 +44,19 @@ const DetailsPage: React.FC<DetailsPageProps> = ({
 			<div className="flex gap-5 overflow-x-auto w-full">
 				{cast.map((castMember) => (
 					<Card
-						theme={{ root: { children: "p-0" } }}
+						theme={{ root: { children: "p-2" } }}
 						key={castMember.name}
-						className="flex flex-col items-center p-1 w-24 "
+						className="flex flex-col items-center w-24 "
 					>
 						<img
 							src={castMember.profile_path}
 							alt={castMember.name}
-							className="rounded-sm mb-1 w-24"
+							className="rounded-sm mb-1 w-24 h-36"
 						/>
 						<p className="text-sm font-semibold dark:text-white w-24">
 							{castMember.name}
 						</p>
-						<p className="text-xs text-gray-400">{castMember.character}</p>
+						<p className="text-xs text-gray-400 mt-3">{castMember.character}</p>
 					</Card>
 				))}
 			</div>

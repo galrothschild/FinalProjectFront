@@ -99,3 +99,8 @@ export const patchToApi = async (
 	);
 	return response.data;
 };
+
+export const putToAPI = async (url: `users/${string}`, data: unknown) => {
+	const response = await instance.put(`${BASE_URL}/${url}`, data);
+	return response.data;
+};

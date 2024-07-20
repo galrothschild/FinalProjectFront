@@ -5,7 +5,7 @@ const FooterComponent: React.FC = () => {
 		<Footer container className="bottom-0">
 			<div className="w-full text-center">
 				<div className="w-full justify-between sm:flex sm:items-center sm:justify-between">
-					<Footer.Brand href="/" src="/public/logo.png" alt="MyMovies Logo" />
+					<Footer.Brand href="/" src="/logo.png" alt="MyMovies Logo" />
 					<Footer.LinkGroup>
 						<Footer.Link href="/about">About</Footer.Link>
 						<Footer.Link href="/movies">Movies</Footer.Link>
