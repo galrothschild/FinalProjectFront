@@ -1,6 +1,8 @@
 import App from "../App";
 import MoviePage from "../movies/pages/MoviePage";
 import MoviesPage from "../movies/pages/MoviesPage";
+import AboutPage from "../pages/AboutPage";
+import HomePage from "../pages/HomePage";
 import Sandbox from "../sandbox/Sandbox";
 import TVShowPage from "../tv/pages/TVShowPage";
 import TVShowsPage from "../tv/pages/TVShowsPage";
@@ -48,7 +50,7 @@ export const ROUTES: route[] = [
 	},
 	{
 		path: "/about",
-		element: <App />,
+		element: <AboutPage />,
 	},
 	{
 		path: "/sandbox",

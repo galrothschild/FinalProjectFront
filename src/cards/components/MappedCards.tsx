@@ -16,6 +16,7 @@ const MappedCards: React.FC<MappedCardsProps> = ({
 	cards,
 	pageName,
 }) => {
+	console.log(cards);
 	return !isLoading ? (
 		<div className={CardsGallery}>
 			{cards.map((card) => (
