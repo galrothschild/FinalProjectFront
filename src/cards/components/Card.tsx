@@ -12,6 +12,7 @@ type CardPropTypes = {
 	genres: string;
 	id: number;
 	url: "movies" | "tv";
+	disabled?: boolean;
 };
 
 // TODO: Make text overflow ellipsis normally
@@ -22,6 +23,7 @@ const CardComponent: React.FC<CardPropTypes> = ({
 	genres,
 	id,
 	url,
+	disabled = false,
 }) => {
 	const invokeToast = useToast();
 	const dispatch = useDispatch();
@@ -58,7 +60,10 @@ const CardComponent: React.FC<CardPropTypes> = ({
 			imgAlt={title}
 			horizontal
 		>
-			<a href={`/${url}/${id}`}>
+			<a
+				href={disabled ? "#" : `/${url}/${id}`}
+				className={disabled ? "cursor-default" : ""}
+			>
 				<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 					{title}
 				</h5>
@@ -72,6 +77,7 @@ const CardComponent: React.FC<CardPropTypes> = ({
 			</a>
 			<div className="flex gap-2 flex-col sm:flex-row">
 				<Button
+					disabled={disabled}
 					className="hover:brightness-95"
 					color={entry && !entry.watched ? "red" : "blue"}
 					onClick={handleWatchlist}
@@ -79,6 +85,7 @@ const CardComponent: React.FC<CardPropTypes> = ({
 					{entry && !entry?.watched ? "Remove from List" : "Add to Watchlist"}
 				</Button>
 				<Button
+					disabled={disabled}
 					className="hover:brightness-95 "
 					// biome-ignore lint/complexity/useOptionalChain: <explanation>
 					color={entry && entry.watched ? "red" : "blue"}

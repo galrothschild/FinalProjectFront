@@ -16,7 +16,7 @@ type route = {
 export const ROUTES: route[] = [
 	{
 		path: "/",
-		element: <MoviesPage />,
+		element: <HomePage />,
 	},
 	{
 		path: "/watchlist",
