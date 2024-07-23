@@ -52,6 +52,12 @@ const Form = <T extends FieldValues>({
 	useEffect(() => {
 		defaultValues && reset(defaultValues);
 	}, [defaultValues]);
+	const isFieldRequired = (field: string) => {
+		const parsedSchema = schema.safeParse({ [field]: "" });
+		return parsedSchema.error?.issues.some((issue) =>
+			issue.path.includes(field),
+		);
+	};
 	return (
 		<Card className={`w-full max-w-md ${inputs.length > 4 ? "max-w-4xl" : ""}`}>
 			<h1 className="text-2xl font-bold dark:text-gray-100 text-center">
@@ -86,6 +92,7 @@ const Form = <T extends FieldValues>({
 							error={errors[input] as FieldError}
 							inputName={input as Path<T>}
 							register={register}
+							isRequired={isFieldRequired(input)}
 						/>
 					))}
 				</div>

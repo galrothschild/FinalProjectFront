@@ -9,6 +9,7 @@ import TVShowsPage from "../tv/pages/TVShowsPage";
 import LoginPage from "../users/pages/LoginPage";
 import SignupPage from "../users/pages/SignupPage";
 import UpdateUserPage from "../users/pages/UpdateUserPage";
+import UserManagementPage from "../users/pages/UserManagementPage";
 import WatchlistPage from "../users/pages/WatchlistPage";
 type route = {
 	path: string;
@@ -57,15 +58,11 @@ export const ROUTES: route[] = [
 		element: <Sandbox />,
 	},
 	{
-		path: "/pricing",
-		element: <App />,
-	},
-	{
-		path: "/contact",
-		element: <App />,
-	},
-	{
 		path: "/users/:id",
 		element: <UpdateUserPage />,
+	},
+	{
+		path: "/users/",
+		element: <UserManagementPage />,
 	},
 ];

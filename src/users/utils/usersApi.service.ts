@@ -87,3 +87,8 @@ export const updateUser = async (data: IUser, id: string) => {
 		return { data, status };
 	}
 };
+
+export const getUsers = async () => {
+	const response = await getFromApi("/users/");
+	return response;
+};

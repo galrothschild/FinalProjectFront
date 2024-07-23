@@ -1,7 +1,7 @@
 import { Toast } from "flowbite-react";
-import { useState } from "react";
 import { HiCheck, HiExclamation, HiX } from "react-icons/hi";
 import style from "./toast.module.css";
+
 type ToastComponentProps = {
 	message: string;
 	type: "success" | "error" | "info";
@@ -29,11 +29,14 @@ const ToastComponent: React.FC<ToastComponentProps> = ({ message, type }) => {
 					</div>
 				);
 			default:
-				return;
+				return null;
 		}
 	};
+
 	return (
-		<Toast className={style.toast}>
+		<Toast
+			className={`${style.toast} p-4 rounded-md opacity-0 animate-fadeInOut`}
+		>
 			{getToastType(type)}
 			<div className="ml-3 text-sm font-normal">{message}</div>
 		</Toast>

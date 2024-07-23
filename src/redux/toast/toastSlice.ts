@@ -1,10 +1,10 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-type toastState = {
+type ToastState = {
 	toasts: { message: string; type: "info" | "success" | "error" }[];
 };
 
-const initialState: toastState = {
+const initialState: ToastState = {
 	toasts: [],
 };
 
@@ -19,7 +19,7 @@ const toastSlice = createSlice({
 				type: "info" | "success" | "error";
 			}>,
 		) => {
-			if (state.toasts.length <= 3) {
+			if (state.toasts.length < 3) {
 				state.toasts.push(action.payload);
 			}
 		},

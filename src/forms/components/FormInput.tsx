@@ -1,4 +1,4 @@
-import { FloatingLabel, Label, TextInput, Tooltip } from "flowbite-react";
+import { FloatingLabel } from "flowbite-react";
 import capitalizeString from "../../utils/capitalizeWord";
 import type {
 	FieldValues,
@@ -12,12 +12,14 @@ type FormInputProps<T extends FieldValues> = {
 	register: UseFormRegister<T>;
 	inputName: Path<T>;
 	wrap?: boolean;
+	isRequired?: boolean;
 };
 
 const FormInput = <T extends FieldValues>({
 	error,
 	register,
 	inputName,
+	isRequired,
 }: FormInputProps<T>) => {
 	const message = error?.message || "";
 	let inputType = "text";
@@ -31,6 +33,7 @@ const FormInput = <T extends FieldValues>({
 		default:
 			break;
 	}
+	console.log(register(inputName).required);
 	return (
 		<div>
 			<FloatingLabel
@@ -41,7 +44,7 @@ const FormInput = <T extends FieldValues>({
 				// placeholder={`Enter your ${inputName}`}
 				{...register(inputName)}
 				color={error ? "error" : "default"}
-				label={capitalizeString(inputName)}
+				label={`${capitalizeString(inputName)}${isRequired ? "*" : ""}`}
 			/>
 			<p className="text-red-500 h-5">{message ?? " "}</p>
 		</div>

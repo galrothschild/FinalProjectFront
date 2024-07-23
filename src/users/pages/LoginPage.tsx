@@ -1,4 +1,3 @@
-import type { FieldValues } from "react-hook-form";
 import Form from "../../forms/components/Form";
 import { login } from "../utils/usersApi.service";
 import { setUser } from "../../redux/user/userSlice";
@@ -6,13 +5,17 @@ import type { AppDispatch } from "../../redux/store";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-import { useState } from "react";
-import { addToast } from "../../redux/toast/toastSlice";
+import { useEffect, useState } from "react";
 import { useToast } from "../../toast/hooks/useToast";
 
 const loginSchema = z.object({
 	username: z.string().min(6),
-	password: z.string().min(8),
+	password: z
+		.string()
+		.regex(
+			/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+			"At least One Capital, one lowercase and one number",
+		),
 });
 type LoginFormInputs = z.infer<typeof loginSchema>;
 const Login: React.FC = () => {
@@ -31,7 +34,8 @@ const Login: React.FC = () => {
 				invokeToast("Welcome back!", "success");
 				navigate("/");
 			} catch (error) {
-				setError(String(error));
+				const errorMessage = (error as { data: { error: string } })?.data.error;
+				setError(errorMessage);
 				invokeToast("Invalid credentials", "error");
 			}
 		},
@@ -42,6 +46,7 @@ const Login: React.FC = () => {
 		text: "New user? Register",
 		link: "/signup",
 	};
+
 	return (
 		<Form<LoginFormInputs>
 			schema={loginSchema}
