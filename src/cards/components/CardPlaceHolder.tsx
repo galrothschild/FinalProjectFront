@@ -1,9 +1,13 @@
+import { useSelector } from "react-redux";
+import type { RootState } from "../../redux/store";
+
 const CardPlaceHolder: React.FC = () => {
+	const view = useSelector((state: RootState) => state.cards.view);
 	return (
 		<>
 			<div
 				role="status"
-				className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center flex rounded-lg border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800 flex-col md:max-w-xl md:flex-row hover:bg-gray-100 dark:hover:bg-gray-700 max-w-sm"
+				className={`space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center flex rounded-lg border border-gray-200 bg-white shadow-md dark:border-gray-700 dark:bg-gray-800 flex-col md:max-w-xl md:flex-row hover:bg-gray-100 dark:hover:bg-gray-700 ${view === "grid" ? "max-w-sm xl:basis-1/2" : "md:max-w-[90vw] basis-full"}`}
 			>
 				<div className="flex items-center justify-center w-48 h-72 bg-gray-300 rounded sm:w-96 dark:bg-gray-700">
 					<svg

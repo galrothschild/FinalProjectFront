@@ -33,17 +33,17 @@ const NavbarComponent = () => {
 				)}
 			</div>
 			<Navbar.Collapse>
-				<NavLink to="/" label="Home" />
-				<NavLink to="/about" label="About" />
 				{isLogged && (
 					<>
-						<NavLink to="/tv" label="TV Shows" />
 						<NavLink to="/movies" label="Movies" />
+						<NavLink to="/tv" label="TV Shows" />
 						<NavLink to="/watchlist" label="Watchlist" />
 					</>
 				)}
 				{!isLogged && (
 					<>
+						<NavLink to="/" label="Home" />
+						<NavLink to="/about" label="About" />
 						<NavLink to="/login" label="Login" className="block sm:hidden" />
 						<NavLink to="/signup" label="Sign Up" className="block sm:hidden" />
 					</>

@@ -28,6 +28,7 @@ const CardComponent: React.FC<CardPropTypes> = ({
 	const invokeToast = useToast();
 	const dispatch = useDispatch();
 	const watchList = useSelector((state: RootState) => state.user.watchList);
+	const view = useSelector((state: RootState) => state.cards.view);
 	const typeMap: { [key: string]: "tv show" | "movie" } = {
 		tv: "tv show",
 		movies: "movie",
@@ -55,7 +56,7 @@ const CardComponent: React.FC<CardPropTypes> = ({
 	};
 	return (
 		<Card
-			className="max-w-sm xl:basis-1/2 xl:min-w-[600px]"
+			className={`${view === "grid" ? "max-w-sm xl:basis-1/2" : "md:max-w-[90vw] basis-full"}  xl:min-w-[600px]`}
 			imgSrc={imgSrc}
 			imgAlt={title}
 			horizontal

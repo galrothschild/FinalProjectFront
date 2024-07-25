@@ -7,6 +7,8 @@ import type { Genre } from "../../movies/models/IMovie.model";
 import { useEffect } from "react";
 import { setPage } from "../../redux/pages/pageSlice";
 import MappedCards from "../components/MappedCards";
+import { Button } from "flowbite-react";
+import { toggleView } from "../../redux/cards/cardsSlice";
 
 export type CardData = {
 	id: number;
@@ -52,28 +54,13 @@ const CardsPage: React.FC<CardsPageProps> = ({
 					selectedOptions={genres.selected}
 					setSelectedOptions={genres.setSelected}
 				/>
+				<Button
+					onClick={() => dispatch(toggleView())}
+					className="hidden lg:block"
+				>
+					Toggle View
+				</Button>
 			</div>
-			{/* {!isLoading ? (
-				<div className={CardsGallery}>
-					{cards.map((card) => (
-						<CardComponent
-							id={card.id}
-							key={card.id}
-							description={card.description}
-							genres={card.genres}
-							imgSrc={card.imgSrc}
-							title={card.title}
-							url={pageName}
-						/>
-					))}
-				</div>
-			) : (
-				<div className={CardsGallery}>
-					{[...Array(10)].map((_) => (
-						<CardPlaceHolder key={Math.random()} />
-					))}
-				</div>
-			)} */}
 			<MappedCards isLoading={isLoading} cards={cards} pageName={pageName} />
 		</PaginatedLayout>
 	);

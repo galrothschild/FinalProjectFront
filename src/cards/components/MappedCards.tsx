@@ -1,3 +1,4 @@
+import { Button } from "flowbite-react";
 import type { CardData } from "../pages/CardsPage";
 import CardComponent from "./Card";
 import CardPlaceHolder from "./CardPlaceHolder";

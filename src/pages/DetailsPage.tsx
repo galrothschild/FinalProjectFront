@@ -46,7 +46,7 @@ const DetailsPage: React.FC<DetailsPageProps> = ({
 					<Card
 						theme={{ root: { children: "p-2" } }}
 						key={castMember.name}
-						className="flex flex-col items-center w-24 "
+						className="flex flex-col items-center w-28 "
 					>
 						<img
 							src={castMember.profile_path}
