@@ -17,9 +17,9 @@ const NavLink = ({ to, label, className }: NavLinkType) => {
 		<Navbar.Link
 			href={to}
 			active={location.pathname === to}
-			onClick={() => {
+			onClick={(e) => {
 				dispatch(setSearch(""));
-				return clickHandler;
+				clickHandler(e);
 			}}
 			className={className}
 		>

@@ -559,6 +559,18 @@
   resolved "https://registry.npmjs.org/@tabler/icons/-/icons-3.5.0.tgz"
   integrity sha512-I53dC3ZSHQ2MZFGvDYJelfXm91L2bTTixS4w5jTAulLhHbCZso5Bih4Rk/NYZxlngLQMKHvEYwZQ+6w/WluKiA==
 
+"@tanstack/query-core@5.51.14":
+  version "5.51.14"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.51.14.tgz#cba2e34f0bfad92062d48793523812fc7bc9f35c"
+  integrity sha512-4k4QEqs4WX7A6IgYpUpLbIj4uIWiUGO9pVAJ0C3TxsY7rVhBSoU6od4MeXZSTljC8XDhLrD8BHqHJDJTsoPjxQ==
+
+"@tanstack/react-query@^5.51.14":
+  version "5.51.14"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.51.14.tgz#2eea813f05ef04c240845757f2b4d305946dd427"
+  integrity sha512-ahekMR8D9dDVmVfSZmWQ8WJrGxMsuz+mDzUKLAfzBPeyxFUf2giWKuXu8XCm3PJUoEHZWta/I1Qd+YiHLiiW1Q==
+  dependencies:
+    "@tanstack/query-core" "5.51.14"
+
 "@types/babel__core@^7.20.5":
   version "7.20.5"
   resolved "https://registry.npmjs.org/@types/babel__core/-/babel__core-7.20.5.tgz"

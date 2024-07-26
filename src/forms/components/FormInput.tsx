@@ -33,7 +33,6 @@ const FormInput = <T extends FieldValues>({
 		default:
 			break;
 	}
-	console.log(register(inputName).required);
 	return (
 		<div>
 			<FloatingLabel

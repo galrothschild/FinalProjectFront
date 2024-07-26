@@ -3,7 +3,7 @@ import type { AppDispatch, RootState } from "../../redux/store";
 import { Dropdown, Avatar } from "flowbite-react";
 import { logoutAPI } from "../../users/utils/usersApi.service";
 import { logout } from "../../redux/user/userSlice";
-import { useNavigate } from "react-router-dom";
+import { useLinkClickHandler, useNavigate } from "react-router-dom";
 import { useToast } from "../../toast/hooks/useToast";
 
 const ProfileButton = () => {
@@ -12,12 +12,14 @@ const ProfileButton = () => {
 	const dispatch = useDispatch<AppDispatch>();
 	const navigate = useNavigate();
 	const invokeToast = useToast();
+
 	const handleLogout = () => {
 		logoutAPI();
 		dispatch(logout());
 		navigate("/login");
 		invokeToast("See you next time", "info");
 	};
+
 	return isLoggedIn ? (
 		<div className="flex md:order-2">
 			<Dropdown
@@ -31,7 +33,9 @@ const ProfileButton = () => {
 						{user.email}
 					</span>
 				</Dropdown.Header>
-				<Dropdown.Item href={`/users/${user._id}`}>Update User</Dropdown.Item>
+				<Dropdown.Item onClick={() => navigate(`/users/${user._id}`)}>
+					Update User
+				</Dropdown.Item>
 				<Dropdown.Divider />
 				<Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
 			</Dropdown>

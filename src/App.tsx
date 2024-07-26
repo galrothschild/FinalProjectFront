@@ -5,7 +5,7 @@ const App = () => {
 
 	return (
 		<>
-			<h1>{location.pathname}</h1>
+			<h1 className="text-4xl text-white">{location.pathname}</h1>
 		</>
 	);
 };

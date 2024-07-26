@@ -38,11 +38,15 @@ export const getFromApi = async (
 	page?: number,
 	query?: string,
 ) => {
-	const params = query ? { query: query, page: page } : { page: page };
-	const response = await instance.get(BASE_URL + url, {
-		params: params,
-	});
-	return response.data;
+	try {
+		const params = query ? { query: query, page: page } : { page: page };
+		const response = await instance.get(BASE_URL + url, {
+			params: params,
+		});
+		return response.data;
+	} catch (error) {
+		return Promise.reject([]);
+	}
 };
 
 export const getFromAPIFiltered = async (

@@ -62,7 +62,7 @@ export const ROUTES: route[] = [
 		element: <UpdateUserPage />,
 	},
 	{
-		path: "/users/",
+		path: "/admin/",
 		element: <UserManagementPage />,
 	},
 ];
