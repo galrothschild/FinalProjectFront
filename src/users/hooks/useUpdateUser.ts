@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { setUser } from "../../redux/user/userSlice";
 import { getUser, updateUser } from "../utils/usersApi.service";
+import type { RootState } from "../../redux/store";
 const UpdateUserSchema = z.object({
 	username: z.string().min(6),
 	email: z.string().email(),
@@ -14,6 +15,7 @@ const UpdateUserSchema = z.object({
 });
 export type UpdateUserFormInputs = z.infer<typeof UpdateUserSchema>;
 const useUpdateUser = (id: string) => {
+	const currentUserId = useSelector((state: RootState) => state.user.user._id);
 	const [defaultValues, setDefaultValues] = useState<UpdateUserFormInputs>();
 	useEffect(() => {
 		getUser(id).then((userData) => {
@@ -58,8 +60,11 @@ const useUpdateUser = (id: string) => {
 				}
 				if (response.username) {
 					setError("");
-					dispatch(setUser(response));
-					navigate("/");
+					if (id === currentUserId) {
+						dispatch(setUser(response));
+						navigate("/");
+					}
+					navigate(-1);
 				}
 			});
 		},

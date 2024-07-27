@@ -9,6 +9,7 @@ export type IUser = {
 	};
 	_id?: string;
 	password?: string;
+	isAdmin?: boolean;
 };
 
 export type TokenPayload = {

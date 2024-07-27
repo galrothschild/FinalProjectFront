@@ -11,8 +11,8 @@ type CardPropTypes = {
 	title: string;
 	description: string;
 	genres: string;
-	id: number;
-	url: "movies" | "tv";
+	id: number | string;
+	url: "movies" | "tv" | "users";
 	disabled?: boolean;
 };
 
