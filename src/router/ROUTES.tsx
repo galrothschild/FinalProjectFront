@@ -1,4 +1,3 @@
-import App from "../App";
 import MoviePage from "../movies/pages/MoviePage";
 import MoviesPage from "../movies/pages/MoviesPage";
 import AboutPage from "../pages/AboutPage";

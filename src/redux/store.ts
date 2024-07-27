@@ -5,7 +5,6 @@ import cardsReducer from "./cards/cardsSlice";
 import searchReducer from "./search/searchSlice";
 import showReducer from "./tv/tvSlice";
 import userReducer from "./user/userSlice";
-import toastReducer from "./toast/toastSlice";
 
 export const store = configureStore({
 	reducer: {
@@ -15,7 +14,6 @@ export const store = configureStore({
 		search: searchReducer,
 		tv: showReducer,
 		user: userReducer,
-		toast: toastReducer,
 	},
 });
 

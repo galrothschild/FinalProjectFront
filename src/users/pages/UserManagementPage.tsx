@@ -10,9 +10,9 @@ const UserManagementPage = () => {
 	useEffect(() => {
 		useUsers().then((data) => {
 			setUsers(data.users);
+			console.log(data.users);
 		});
 	}, []);
-	console.log(isAdmin);
 	if (!isAdmin) return <Navigate to="/movies" />;
 	return !users.length ? (
 		<div>Loading...</div>

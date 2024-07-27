@@ -23,7 +23,7 @@ const NavbarComponent = () => {
 			</Navbar.Brand>
 
 			<div className="md:order-2 flex">
-				<DarkThemeToggle />
+				<DarkThemeToggle className="mr-3" />
 				<Navbar.Toggle />
 				{isLogged ? (
 					<ProfileButton />

@@ -9,12 +9,12 @@ const Sandbox = () => {
 		console.log(response);
 	};
 	return (
-		<>
+		<div className="flex flex-col gap-5">
 			<Button onClick={() => invokeToast("Hello from the sandbox!", "success")}>
 				Toast!
 			</Button>
 			<Button onClick={handleWatchlist}>Watchlist!</Button>
-		</>
+		</div>
 	);
 };
 

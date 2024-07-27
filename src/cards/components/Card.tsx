@@ -66,7 +66,7 @@ const CardComponent: React.FC<CardPropTypes> = ({
 			{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
 			<div
 				onClick={disabled ? () => {} : () => navigate(`/${url}/${id}`)}
-				className={disabled ? "cursor-default" : ""}
+				className={disabled ? "cursor-default" : "cursor-pointer"}
 			>
 				<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
 					{title}

@@ -5,9 +5,9 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../redux/user/userSlice";
 import { getNewAccessToken } from "../users/utils/usersApi.service";
-import ToastStack from "../toast/ToastStack";
 import FooterComponent from "./Footer";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Layout: React.FC = () => {
 	const dispatch = useDispatch();
@@ -38,7 +38,10 @@ const Layout: React.FC = () => {
 			<div className="flex px-5 py-3 flex-col justify-center items-center sm:px-28 min-h-[75dvh]">
 				<Outlet />
 			</div>
-			<ToastContainer theme={mode === "auto" ? "colored" : mode} />
+			<ToastContainer
+				theme={mode === "auto" ? "colored" : mode}
+				className="mt-10"
+			/>
 			<FooterComponent />
 		</Flowbite>
 	);
