@@ -122,9 +122,15 @@ const Form = <T extends FieldValues>({
 				{callToAction.show && (
 					<p className="dark:text-gray-100 mt-3">
 						{callToAction.text}{" "}
-						<a href={callToAction.link} className="underline text-gray-400">
+						<span
+							className="underline text-gray-400 cursor-pointer"
+							onClick={() => navigate(callToAction.link)}
+							onKeyDown={() => {}}
+							onKeyUp={() => {}}
+							onKeyPress={() => {}}
+						>
 							here
-						</a>{" "}
+						</span>{" "}
 					</p>
 				)}
 			</form>

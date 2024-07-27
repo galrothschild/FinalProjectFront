@@ -49,13 +49,6 @@ const About = () => {
 					securely stored in our database.
 				</p>
 			</Card>
-
-			<Card className="mb-4">
-				<h2 className="text-2xl font-semibold mb-2">Get Started</h2>
-				<Button href="/register" gradientMonochrome="info">
-					Register Now
-				</Button>
-			</Card>
 		</div>
 	);
 };

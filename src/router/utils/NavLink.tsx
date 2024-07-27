@@ -15,13 +15,13 @@ const NavLink = ({ to, label, className }: NavLinkType) => {
 	const location = useLocation();
 	return (
 		<Navbar.Link
-			href={to}
+			to={to}
 			active={location.pathname === to}
 			onClick={(e) => {
 				dispatch(setSearch(""));
 				clickHandler(e);
 			}}
-			className={className}
+			className={`${className} cursor-pointer`}
 		>
 			{label}
 		</Navbar.Link>

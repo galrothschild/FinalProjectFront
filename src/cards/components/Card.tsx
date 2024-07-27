@@ -4,6 +4,7 @@ import { useToast } from "../../toast/hooks/useToast";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../redux/store";
 import { AddRemoveEntry } from "../../redux/user/userSlice";
+import { useNavigate } from "react-router-dom";
 
 type CardPropTypes = {
 	imgSrc: string;
@@ -25,6 +26,7 @@ const CardComponent: React.FC<CardPropTypes> = ({
 	url,
 	disabled = false,
 }) => {
+	const navigate = useNavigate();
 	const invokeToast = useToast();
 	const dispatch = useDispatch();
 	const watchList = useSelector((state: RootState) => state.user.watchList);
@@ -61,8 +63,9 @@ const CardComponent: React.FC<CardPropTypes> = ({
 			imgAlt={title}
 			horizontal
 		>
-			<a
-				href={disabled ? "#" : `/${url}/${id}`}
+			{/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
+			<div
+				onClick={disabled ? () => {} : () => navigate(`/${url}/${id}`)}
 				className={disabled ? "cursor-default" : ""}
 			>
 				<h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
@@ -75,7 +78,7 @@ const CardComponent: React.FC<CardPropTypes> = ({
 				>
 					{description}
 				</p>
-			</a>
+			</div>
 			<div className="flex gap-2 flex-col sm:flex-row">
 				<Button
 					disabled={disabled}

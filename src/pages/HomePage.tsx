@@ -23,9 +23,10 @@ import { Button } from "flowbite-react";
 import CardComponent from "../cards/components/Card";
 import { useSelector } from "react-redux";
 import type { RootState } from "../redux/store";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+	const navigate = useNavigate();
 	const isLogged = useSelector((state: RootState) => state.user.isLogged);
 	if (isLogged) {
 		return <Navigate to="/movies" />;
@@ -39,10 +40,13 @@ const HomePage = () => {
 				</p>
 
 				<div className="mt-4 flex flex-col gap-2">
-					<Button href="/login" gradientMonochrome="success">
+					<Button
+						onClick={() => navigate("/login")}
+						gradientMonochrome="success"
+					>
 						Login
 					</Button>
-					<Button href="/register" gradientMonochrome="info">
+					<Button onClick={() => navigate("/signup")} gradientMonochrome="info">
 						Register
 					</Button>
 				</div>

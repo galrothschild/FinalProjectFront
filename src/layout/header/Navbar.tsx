@@ -4,11 +4,17 @@ import style from "./navbar.module.css";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../redux/store";
 import ProfileButton from "./ProfileButton";
+import { useNavigate } from "react-router-dom";
 const NavbarComponent = () => {
 	const { isLogged, isAdmin } = useSelector((state: RootState) => state.user);
+	const navigate = useNavigate();
 	return (
 		<Navbar fluid rounded className={style.nav}>
-			<Navbar.Brand href="/">
+			<Navbar.Brand
+				onClick={() => {
+					navigate("/");
+				}}
+			>
 				<img
 					src="/logo.png"
 					className="mr-3 h-5 sm:h-9 xs:h-6"
@@ -23,10 +29,16 @@ const NavbarComponent = () => {
 					<ProfileButton />
 				) : (
 					<>
-						<Button className="ml-2 hidden sm:block" href="/login">
+						<Button
+							className="ml-2 hidden sm:block"
+							onClick={() => navigate("/login")}
+						>
 							Sign In
 						</Button>
-						<Button className="ml-2 hidden sm:block" href="/signup">
+						<Button
+							className="ml-2 hidden sm:block"
+							onClick={() => navigate("/signup")}
+						>
 							Sign Up
 						</Button>
 					</>

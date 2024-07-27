@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import ToastComponent from "./ToastComponent";
+import { ToastContainer } from "react-toastify";
 import type { RootState } from "../redux/store";
 import { useEffect } from "react";
 import { removeToast } from "../redux/toast/toastSlice";
@@ -21,22 +22,7 @@ const ToastStack: React.FC<ToastStackProps> = ({ position }) => {
 		return () => clearTimeout(timer);
 	}, [toasts, dispatch]);
 
-	return (
-		<div
-			className={`flex flex-col gap-3 fixed ${
-				position.includes("top") ? "top-3" : "bottom-3"
-			} ${position.includes("right") ? "right-3" : "left-3"} md:top-20 md:right-3 md:left-auto z-50`}
-		>
-			{toasts.map((toast, index) => (
-				<ToastComponent
-					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-					key={index}
-					message={toast.message}
-					type={toast.type}
-				/>
-			))}
-		</div>
-	);
+	return <ToastContainer />;
 };
 
 export default ToastStack;

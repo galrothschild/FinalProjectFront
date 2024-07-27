@@ -1,6 +1,9 @@
 import { memo } from "react";
 import type { Genre } from "../../movies/models/IMovie.model";
 import { Checkbox, Dropdown } from "flowbite-react";
+import type { AppDispatch } from "../../redux/store";
+import { useDispatch } from "react-redux";
+import { setPage } from "../../redux/pages/pageSlice";
 
 type FilterProps = {
 	genres: Genre[];
@@ -22,13 +25,18 @@ const Filter = ({
 			setSelectedOptions([...selectedOptions, option.id]);
 		}
 	};
+	const dispatch = useDispatch<AppDispatch>();
+	const handleFilter = () => {
+		dispatch(setPage(1));
+		onFilter();
+	};
 	return (
 		<Dropdown
 			label="Filter by Genre"
 			dismissOnClick={false}
 			className="h-52 overflow-auto scroll"
 		>
-			<Dropdown.Item onClick={onFilter}>Apply Filter</Dropdown.Item>
+			<Dropdown.Item onClick={handleFilter}>Apply Filter</Dropdown.Item>
 			<Dropdown.Divider />
 			{genres.map((genre) => (
 				<Dropdown.Item key={genre.id} onClick={() => handleSelect(genre)}>
@@ -43,7 +51,7 @@ const Filter = ({
 				</Dropdown.Item>
 			))}
 			<Dropdown.Divider />
-			<Dropdown.Item onClick={onFilter}>Apply Filter</Dropdown.Item>
+			<Dropdown.Item onClick={handleFilter}>Apply Filter</Dropdown.Item>
 		</Dropdown>
 	);
 };

@@ -7,7 +7,12 @@ const FooterComponent: React.FC = () => {
 				<div className="w-full justify-between sm:flex sm:items-center sm:justify-between">
 					<Footer.Brand href="/" src="/logo.png" alt="MyMovies Logo" />
 					<Footer.LinkGroup>
-						<Footer.Link href="/about">About</Footer.Link>
+						<Footer.Link
+							href="https://www.linkedin.com/in/galrothschild"
+							target="_blank"
+						>
+							LinkedIn
+						</Footer.Link>
 						<Footer.Link href="/movies">Movies</Footer.Link>
 						<Footer.Link href="/tv">TV Shows</Footer.Link>
 						<Footer.Link href="/">Home</Footer.Link>

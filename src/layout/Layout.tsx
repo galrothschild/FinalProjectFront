@@ -1,17 +1,19 @@
 import { memo, useEffect } from "react";
 import Header from "./header/Header";
-import { Flowbite } from "flowbite-react";
+import { Flowbite, useThemeMode } from "flowbite-react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../redux/user/userSlice";
 import { getNewAccessToken } from "../users/utils/usersApi.service";
 import ToastStack from "../toast/ToastStack";
 import FooterComponent from "./Footer";
+import { ToastContainer } from "react-toastify";
 
 const Layout: React.FC = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { pathname } = useLocation();
+	const { mode } = useThemeMode();
 	// biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
 	useEffect(() => {
 		const initializeAuth = async () => {
@@ -36,7 +38,7 @@ const Layout: React.FC = () => {
 			<div className="flex px-5 py-3 flex-col justify-center items-center sm:px-28 min-h-[75dvh]">
 				<Outlet />
 			</div>
-			<ToastStack position="top-right" />
+			<ToastContainer theme={mode === "auto" ? "colored" : mode} />
 			<FooterComponent />
 		</Flowbite>
 	);
