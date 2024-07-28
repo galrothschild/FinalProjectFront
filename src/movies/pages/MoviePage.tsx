@@ -7,7 +7,7 @@ const MoviePage = () => {
 	if (!id || Number.isNaN(id)) {
 		return <div>Movie not found</div>;
 	}
-	const { movie, loading } = useMovie(+id);
+	const { movie, loading, cast } = useMovie(+id);
 	if (loading) {
 		return <div>Loading...</div>;
 	}
@@ -21,7 +21,7 @@ const MoviePage = () => {
 			overview={movie.overview}
 			genres={movie.genres.map((genre) => genre.name)}
 			backdrop={`https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces${movie.backdrop_path}`}
-			cast={movie.cast}
+			cast={cast}
 		/>
 	);
 };

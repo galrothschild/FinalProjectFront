@@ -27,7 +27,6 @@ export interface IMovie {
 	vote_average: number;
 	vote_count: number;
 	watched?: boolean;
-	cast: ICastMember[];
 }
 
 export interface Genre {
