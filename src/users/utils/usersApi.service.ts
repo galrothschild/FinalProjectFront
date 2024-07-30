@@ -1,4 +1,5 @@
 import {
+	deleteUserFromAPI,
 	getFromApi,
 	getFromApiById,
 	postToApi,
@@ -91,4 +92,16 @@ export const updateUser = async (data: IUser, id: string) => {
 export const getUsers = async () => {
 	const response = await getFromApi("/users/");
 	return response;
+};
+
+export const deleteUser = async (id: string) => {
+	try {
+		const response = await deleteUserFromAPI(id);
+		return response;
+	} catch (error) {
+		const {
+			response: { data, status },
+		} = error as { response: { data: { message: string }; status: number } };
+		return { data, status };
+	}
 };

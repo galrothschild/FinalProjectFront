@@ -6,7 +6,7 @@ export type ICastMember = {
 	original_name: string;
 	popularity: number;
 	profile_path: string;
-	character: string;
+	role: string;
 	credit_id: string;
 	order: number;
 };

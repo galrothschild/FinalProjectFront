@@ -37,7 +37,7 @@ const Layout: React.FC = () => {
 		<Flowbite>
 			<Header />
 			<h1 className="text-3xl font-bold text-center dark:text-white mt-5">
-				{`${capitalizeString(pathname.split("/")[1])} Page`}
+				{`${capitalizeString(pathname.split("/")[1] || "Home")} Page`}
 			</h1>
 			<div className="flex px-5 py-3 flex-col justify-center items-center sm:px-28 min-h-[69dvh]">
 				<Outlet />

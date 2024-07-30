@@ -108,3 +108,8 @@ export const putToAPI = async (url: `users/${string}`, data: unknown) => {
 	const response = await instance.put(`${BASE_URL}/${url}`, data);
 	return response.data;
 };
+
+export const deleteUserFromAPI = async (url: string) => {
+	const response = await instance.delete(`${BASE_URL}/users/${url}`);
+	return response.data;
+};

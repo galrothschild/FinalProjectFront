@@ -7,7 +7,7 @@ const TVShowPage = () => {
 	if (!id || Number.isNaN(id)) {
 		return <div>Show not found</div>;
 	}
-	const { show, loading } = useTVShow(+id);
+	const { show, loading, cast } = useTVShow(+id);
 	if (loading) {
 		return <div>Loading...</div>;
 	}
@@ -21,7 +21,7 @@ const TVShowPage = () => {
 			overview={show.overview}
 			genres={show.genres.map((genre) => genre.name)}
 			backdrop={`https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces${show.backdrop_path}`}
-			cast={show.cast}
+			cast={cast}
 		/>
 	);
 };

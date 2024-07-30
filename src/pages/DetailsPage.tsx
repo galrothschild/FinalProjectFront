@@ -6,7 +6,7 @@ type DetailsPageProps = {
 	genres: string[];
 	overview: string;
 	backdrop: string;
-	cast: { name: string; profile_path: string; character: string }[];
+	cast: { name: string; profile_path: string; role: string }[];
 };
 
 const DetailsPage: React.FC<DetailsPageProps> = ({
@@ -17,6 +17,7 @@ const DetailsPage: React.FC<DetailsPageProps> = ({
 	backdrop,
 	cast,
 }) => {
+	console.log(cast);
 	return (
 		<>
 			<div
@@ -51,12 +52,12 @@ const DetailsPage: React.FC<DetailsPageProps> = ({
 						<img
 							src={castMember.profile_path}
 							alt={castMember.name}
-							className="rounded-sm mb-1 w-24 h-36"
+							className="rounded-sm mb-1 w-24 h-36 object-cover"
 						/>
 						<p className="text-sm font-semibold dark:text-white w-24">
 							{castMember.name}
 						</p>
-						<p className="text-xs text-gray-400 mt-3">{castMember.character}</p>
+						<p className="text-xs text-gray-400 mt-3">{castMember.role}</p>
 					</Card>
 				))}
 			</div>
