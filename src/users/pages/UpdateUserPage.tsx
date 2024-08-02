@@ -1,4 +1,4 @@
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import Form from "../../forms/components/Form";
 import useUpdateUser, {
 	type UpdateUserFormInputs,

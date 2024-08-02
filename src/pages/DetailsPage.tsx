@@ -17,7 +17,6 @@ const DetailsPage: React.FC<DetailsPageProps> = ({
 	backdrop,
 	cast,
 }) => {
-	console.log(cast);
 	return (
 		<>
 			<div

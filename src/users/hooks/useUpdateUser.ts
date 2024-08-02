@@ -5,6 +5,7 @@ import { z } from "zod";
 import { setUser } from "../../redux/user/userSlice";
 import { getUser, updateUser } from "../utils/usersApi.service";
 import type { RootState } from "../../redux/store";
+import { useToast } from "../../toast/hooks/useToast";
 const UpdateUserSchema = z.object({
 	username: z.string().min(6),
 	email: z.string().email(),
@@ -35,6 +36,7 @@ const useUpdateUser = (id: string) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [error, setError] = useState("");
+	const invokeToast = useToast();
 	const submit = {
 		name: "Update User",
 		action: (data: UpdateUserFormInputs) => {
@@ -54,12 +56,15 @@ const useUpdateUser = (id: string) => {
 				...rest,
 				image: rest.image || "https://picsum.photos/300/200",
 			};
+
 			updateUser(user, id).then((response) => {
 				if (response.status >= 400) {
 					setError(response.data);
+					invokeToast(response.data, "error");
 				}
 				if (response.username) {
 					setError("");
+					invokeToast("User updated successfully", "success");
 					if (id === currentUserId) {
 						dispatch(setUser(response));
 						navigate("/");

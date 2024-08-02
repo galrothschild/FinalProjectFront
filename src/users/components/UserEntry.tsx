@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, Button } from "flowbite-react";
 
@@ -17,7 +16,7 @@ type UserEntryProps = {
 	onDelete: (id: string) => void;
 };
 
-const UserEntry = ({ user, onDelete }) => {
+const UserEntry: React.FC<UserEntryProps> = ({ user, onDelete }) => {
 	const navigate = useNavigate();
 
 	const handleUpdate = () => {
