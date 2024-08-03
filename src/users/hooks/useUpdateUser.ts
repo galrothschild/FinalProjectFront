@@ -7,7 +7,7 @@ import { getUser, updateUser } from "../utils/usersApi.service";
 import type { RootState } from "../../redux/store";
 import { useToast } from "../../toast/hooks/useToast";
 const UpdateUserSchema = z.object({
-	username: z.string().min(6),
+	username: z.string().min(3),
 	email: z.string().email(),
 	image: z.string().url().or(z.literal("")),
 	"first name": z.string().min(2),

@@ -5,11 +5,11 @@ import type { AppDispatch } from "../../redux/store";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useToast } from "../../toast/hooks/useToast";
 
 const loginSchema = z.object({
-	username: z.string().min(6),
+	username: z.string().min(3),
 	password: z
 		.string()
 		.regex(
