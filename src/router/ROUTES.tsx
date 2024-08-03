@@ -1,3 +1,4 @@
+import CastMemberPage from "../cast/pages/CastMemberPage";
 import MoviePage from "../movies/pages/MoviePage";
 import MoviesPage from "../movies/pages/MoviesPage";
 import AboutPage from "../pages/AboutPage";
@@ -63,5 +64,9 @@ export const ROUTES: route[] = [
 	{
 		path: "/admin/",
 		element: <UserManagementPage />,
+	},
+	{
+		path: "/cast/:id",
+		element: <CastMemberPage />,
 	},
 ];

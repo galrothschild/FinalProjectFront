@@ -34,7 +34,11 @@ instance.interceptors.response.use(
 	},
 );
 export const getFromApi = async (
-	url: `/movies/${string}` | `/tv/${string}` | `/users/${string}`,
+	url:
+		| `/movies/${string}`
+		| `/tv/${string}`
+		| `/users/${string}`
+		| `/credits/${string}`,
 	page?: number,
 	query?: string,
 ) => {
