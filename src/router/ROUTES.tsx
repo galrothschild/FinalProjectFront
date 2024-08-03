@@ -3,7 +3,6 @@ import MoviePage from "../movies/pages/MoviePage";
 import MoviesPage from "../movies/pages/MoviesPage";
 import AboutPage from "../pages/AboutPage";
 import HomePage from "../pages/HomePage";
-import Sandbox from "../sandbox/Sandbox";
 import TVShowPage from "../tv/pages/TVShowPage";
 import TVShowsPage from "../tv/pages/TVShowsPage";
 import LoginPage from "../users/pages/LoginPage";
@@ -53,10 +52,7 @@ export const ROUTES: route[] = [
 		path: "/about",
 		element: <AboutPage />,
 	},
-	{
-		path: "/sandbox",
-		element: <Sandbox />,
-	},
+
 	{
 		path: "/users/:id",
 		element: <UpdateUserPage />,

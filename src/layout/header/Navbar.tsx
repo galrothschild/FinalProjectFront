@@ -60,12 +60,7 @@ const NavbarComponent = () => {
 						<NavLink to="/signup" label="Sign Up" className="block sm:hidden" />
 					</>
 				)}
-				{isAdmin && (
-					<>
-						<NavLink to="/admin" label="Admin" />
-						<NavLink to="/sandbox" label="Sandbox" />
-					</>
-				)}
+				{isAdmin && <NavLink to="/admin" label="Admin" />}
 			</Navbar.Collapse>
 		</Navbar>
 	);

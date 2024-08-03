@@ -29,7 +29,6 @@ const Login: React.FC = () => {
 		action: async (data: LoginFormInputs) => {
 			try {
 				const user = await login(data);
-				console.log(user);
 				dispatch(setUser(user));
 				invokeToast("Welcome back!", "success");
 				navigate("/");
