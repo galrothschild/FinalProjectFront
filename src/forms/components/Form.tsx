@@ -96,7 +96,11 @@ const Form = <T extends FieldValues>({
 						/>
 					))}
 				</div>
-				<Button type="submit" className={"w-full"}>
+				<Button
+					type="submit"
+					className={"w-full"}
+					disabled={!!Object.keys(errors).length}
+				>
 					{submit.name}
 				</Button>
 				{showResetAndCancel && (
